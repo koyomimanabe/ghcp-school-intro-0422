@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HiddenEmoji from '../components/HiddenEmoji.astro';
+
+const voices = [
+  '寮の夜、ずっとコード書いてた…！',
+  'スダチの香りで目が覚める🍊',
+  '山、でかい。空、青い。',
+  'ルームメイトと事業プラン会議中',
+  'LEDチカチカの実験なう💡',
+  '先生が友達みたいで楽しい',
+  '明日のピッチ、緊張する〜',
+];
+---
+<BaseLayout title="学生・寮生活 | 神山まるごと高専 冒険サイト">
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <p class="font-pop text-xl text-deco-pink text-center">🏕️ CAMPUS LIFE</p>
+    <h1 class="font-pop text-5xl md:text-7xl text-center neon text-rainbow mt-2">山と街で暮らす</h1>
+    <p class="text-center mt-4 font-bold">全寮制。山の上で、夜も朝も、みんなと。</p>
+  </section>
+
+  <!-- Parallax mountain scene -->
+  <section class="relative w-full overflow-hidden border-y-4 border-deco-ink bg-gradient-to-b from-deco-electric/50 to-deco-mint/50" style="height: 360px;">
+    <div class="parallax-layer absolute inset-0" data-depth="0.2">
+      <svg viewBox="0 0 1600 360" class="absolute bottom-0 w-[200%] h-full">
+        <polygon points="0,360 200,180 400,260 600,160 800,240 1000,150 1200,240 1400,170 1600,260 1600,360" fill="#c9a7ff"/>
+      </svg>
+    </div>
+    <div class="parallax-layer absolute inset-0" data-depth="0.5">
+      <svg viewBox="0 0 1600 360" class="absolute bottom-0 w-[200%] h-full">
+        <polygon points="0,360 150,240 350,300 500,210 700,280 900,200 1100,290 1300,220 1500,300 1600,280 1600,360" fill="#6bf2c6"/>
+      </svg>
+    </div>
+    <div class="parallax-layer absolute inset-0" data-depth="0.8">
+      <svg viewBox="0 0 1600 360" class="absolute bottom-0 w-[200%] h-full">
+        <polygon points="0,360 100,310 300,330 500,290 700,320 900,280 1100,310 1300,300 1500,320 1600,310 1600,360" fill="#fff25a"/>
+        <g fill="#0c0a1a">
+          <rect x="260" y="260" width="60" height="50"/>
+          <polygon points="260,260 320,260 290,230"/>
+          <rect x="500" y="240" width="70" height="60"/>
+          <polygon points="500,240 570,240 535,205"/>
+          <rect x="900" y="250" width="80" height="55"/>
+          <polygon points="900,250 980,250 940,215"/>
+        </g>
+      </svg>
+    </div>
+    <div id="sun" class="absolute top-10 left-10 text-6xl animate-spin-slow">☀️</div>
+    <div class="absolute top-6 right-10 text-5xl animate-bounce-slow">🏫</div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="font-pop text-4xl md:text-5xl text-center">📣 学生のひとこと</h2>
+    <div id="voice-box" class="mt-8 mx-auto max-w-xl speech bg-deco-lemon text-xl font-bold text-center min-h-[4rem] flex items-center justify-center">…タップで声が聞こえる</div>
+    <div class="text-center mt-4">
+      <button id="voice-btn" class="btn-pop bg-deco-pink text-white">🎤 ランダム</button>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+      <article class="comic-frame p-6 bg-white -rotate-1">
+        <div class="text-5xl">🛏️</div>
+        <h3 class="font-pop text-2xl mt-2">寮生活</h3>
+        <p class="mt-2 text-sm">ルームメイトと雑談→コード→深夜ピッチ練。</p>
+      </article>
+      <article class="comic-frame p-6 bg-white rotate-1">
+        <div class="text-5xl">🍱</div>
+        <h3 class="font-pop text-2xl mt-2">寮メシ</h3>
+        <p class="mt-2 text-sm">地元の野菜どっさり。スダチの香り、立ち上る。</p>
+      </article>
+      <article class="comic-frame p-6 bg-white -rotate-1">
+        <div class="text-5xl">🌌</div>
+        <h3 class="font-pop text-2xl mt-2">夜の山</h3>
+        <p class="mt-2 text-sm">星がベラボーにキレイ。作業のBGMに最適。</p>
+      </article>
+    </div>
+
+    <div class="mt-10">
+      <HiddenEmoji id="campus" emoji="🍊" hint="学生生活のページに隠れた絵文字！" />
+    </div>
+  </section>
+
+  <script define:vars={{ voices }}>
+    const btn = document.getElementById('voice-btn');
+    const box = document.getElementById('voice-box');
+    function pick() {
+      if (!box) return;
+      box.textContent = voices[Math.floor(Math.random()*voices.length)];
+    }
+    btn?.addEventListener('click', pick);
+    pick();
+
+    // Parallax
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        document.querySelectorAll('.parallax-layer').forEach((el) => {
+          const depth = parseFloat(el.getAttribute('data-depth') || '0.3');
+          el.style.transform = `translateX(${-y*depth*0.3}px)`;
+        });
+      });
+    }
+  </script>
+</BaseLayout>

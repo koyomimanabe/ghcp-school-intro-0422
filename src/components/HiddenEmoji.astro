@@ -1,0 +1,47 @@
+---
+export interface Props {
+  id: string;
+  emoji?: string;
+  className?: string;
+  style?: string;
+  hint?: string;
+}
+const { id, emoji = '🫧', className = '', style = '', hint = '隠し絵文字を発見！' } = Astro.props;
+---
+<button
+  type="button"
+  data-hidden-id={id}
+  title={hint}
+  aria-label={hint}
+  class={`hidden-emoji opacity-40 hover:opacity-100 hover:scale-150 transition-transform text-2xl ${className}`}
+  style={style}
+>{emoji}</button>
+
+<script>
+  import { addCollected, getCollected } from '../lib/storage.ts';
+  import { sparkleSe } from '../lib/audio.ts';
+
+  document.querySelectorAll<HTMLButtonElement>('.hidden-emoji').forEach((el) => {
+    const id = el.dataset.hiddenId!;
+    if (getCollected().includes(id)) {
+      el.textContent = '⭐';
+      el.style.opacity = '1';
+      el.disabled = true;
+      el.title = '発見済み！';
+    }
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      addCollected(id);
+      el.textContent = '⭐';
+      el.style.opacity = '1';
+      el.disabled = true;
+      sparkleSe();
+      window.dispatchEvent(new CustomEvent('kmg:collected'));
+      const toast = document.createElement('div');
+      toast.textContent = `✨ 発見！ (${getCollected().length}/8)`;
+      toast.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-50 btn-pop bg-deco-lemon text-deco-ink animate-popin';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 1800);
+    });
+  });
+</script>

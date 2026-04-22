@@ -1,0 +1,105 @@
+---
+const base = import.meta.env.BASE_URL;
+const characters = [
+  { id: 'sudachi-kun', emoji: '🍊', name: 'スダチくん', rarity: 'N', trait: '酸っぱさ +3' },
+  { id: 'led-chan', emoji: '💡', name: 'LEDちゃん', rarity: 'N', trait: 'ひらめき +2' },
+  { id: 'code-senpai', emoji: '📜', name: 'コード先輩', rarity: 'R', trait: 'バグ耐性 +4' },
+  { id: 'design-nyan', emoji: '🎨', name: 'デザインにゃん', rarity: 'R', trait: '美意識 MAX' },
+  { id: 'spark-kun', emoji: '⚡', name: 'スパークくん', rarity: 'SR', trait: '起業ブースト' },
+  { id: 'kamiyama-sama', emoji: '🏔️', name: '神山さま', rarity: 'SSR', trait: '山の祝福' },
+  { id: 'leaf-yousei', emoji: '🍃', name: '葉っぱの妖精', rarity: 'R', trait: '自然治癒' },
+  { id: 'onigiri-master', emoji: '🍙', name: 'おにぎり先生', rarity: 'N', trait: '満腹 +10' },
+  { id: 'starry-night', emoji: '🌌', name: '星降る夜', rarity: 'SR', trait: '集中力 +5' },
+];
+---
+<section id="gacha-panel" class="max-w-2xl mx-auto px-4 py-10">
+  <div class="comic-frame p-6 bg-white text-center">
+    <h3 class="font-pop text-3xl">🎰 神山キャラガチャ</h3>
+    <p class="mt-2 text-sm opacity-80">1日1回、今日のキャラを召喚！ コレクション <span id="gacha-count">0</span>/{characters.length}</p>
+    <div class="mt-4 flex justify-center gap-3 flex-wrap">
+      <button id="gacha-draw" class="btn-pop bg-deco-pink text-white text-lg">🎲 ガチャを回す</button>
+      <button id="gacha-force" class="btn-pop bg-deco-lemon text-deco-ink text-sm" title="いくらでも回す">∞ 何度も回す</button>
+    </div>
+    <div id="gacha-stage" class="mt-6 min-h-[140px] flex items-center justify-center">
+      <p class="opacity-50">ここにキャラが出現…</p>
+    </div>
+    <div id="gacha-collection" class="mt-6 grid grid-cols-3 md:grid-cols-5 gap-2 text-center"></div>
+  </div>
+</section>
+
+<script define:vars={{ characters }}>
+  import { get, set } from '../lib/storage.ts';
+  import { achievement } from '../lib/toast.ts';
+  import { sparkleSe, pickupSe } from '../lib/audio.ts';
+
+  const RARITY_COLOR = { N: '#c9a7ff', R: '#6bf2c6', SR: '#fff25a', SSR: '#ff3ea5' };
+  const RARITY_WEIGHT = { N: 60, R: 28, SR: 10, SSR: 2 };
+
+  const drawBtn = document.getElementById('gacha-draw');
+  const forceBtn = document.getElementById('gacha-force');
+  const stage = document.getElementById('gacha-stage');
+  const colEl = document.getElementById('gacha-collection');
+  const countEl = document.getElementById('gacha-count');
+
+  function today() { const d = new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+  function pickRarity() {
+    const roll = Math.random() * 100;
+    let acc = 0;
+    for (const k of ['SSR','SR','R','N']) {
+      acc += RARITY_WEIGHT[k];
+      if (roll < acc) return k;
+    }
+    return 'N';
+  }
+  function pickChar(rarity) {
+    const pool = characters.filter((c) => c.rarity === rarity);
+    const base = pool.length ? pool : characters;
+    return base[Math.floor(Math.random() * base.length)];
+  }
+
+  function render() {
+    const owned = get('gacha.owned', []);
+    countEl.textContent = String(new Set(owned).size);
+    colEl.innerHTML = '';
+    characters.forEach((c) => {
+      const has = owned.includes(c.id);
+      const card = document.createElement('div');
+      card.className = 'border-2 border-deco-ink rounded-xl p-2 text-center';
+      card.style.background = has ? RARITY_COLOR[c.rarity] : '#eee';
+      card.style.opacity = has ? '1' : '0.5';
+      card.innerHTML = `<div class="text-3xl">${has?c.emoji:'❓'}</div><div class="text-[10px] font-bold mt-1">${has?c.name:'??'}</div>`;
+      colEl.appendChild(card);
+    });
+  }
+
+  function showChar(c) {
+    stage.innerHTML = `<div class="popin comic-frame p-6 w-full" style="background:${RARITY_COLOR[c.rarity]}"><div class="text-7xl">${c.emoji}</div><div class="mt-2 font-pop text-2xl">${c.name}</div><div class="text-xs">[${c.rarity}] ${c.trait}</div></div>`;
+    const card = stage.firstElementChild;
+    card.style.animation = 'popin 0.6s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+  }
+
+  function doDraw(daily) {
+    if (daily) {
+      const last = get('gacha.lastDate', '');
+      if (last === today()) {
+        stage.innerHTML = `<p class="text-deco-pink font-bold">今日はもう回したよ！「∞ 何度も」でプレイ</p>`;
+        return;
+      }
+      set('gacha.lastDate', today());
+    }
+    const rarity = pickRarity();
+    const c = pickChar(rarity);
+    const owned = get('gacha.owned', []);
+    const isNew = !owned.includes(c.id);
+    if (isNew) { owned.push(c.id); set('gacha.owned', owned); }
+    showChar(c);
+    if (rarity === 'SSR' || rarity === 'SR') sparkleSe(); else pickupSe();
+    if (isNew) achievement(`NEW: ${c.name} [${rarity}]`);
+    if (new Set(owned).size === characters.length) achievement('コンプリート！🏆');
+    render();
+  }
+
+  drawBtn?.addEventListener('click', () => doDraw(true));
+  forceBtn?.addEventListener('click', () => doDraw(false));
+  render();
+</script>

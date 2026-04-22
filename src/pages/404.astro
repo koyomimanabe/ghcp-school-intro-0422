@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="道に迷った？ | 404">
+  <section class="max-w-3xl mx-auto px-4 py-24 text-center">
+    <div class="text-8xl animate-bounce-slow">🧭</div>
+    <h1 class="font-pop text-6xl mt-4 neon text-rainbow">404</h1>
+    <p class="font-pop text-2xl mt-4">道に迷った冒険者よ…</p>
+    <p id="wise" class="mt-6 speech bg-deco-lemon inline-block">迷った時は、一度深呼吸。スダチの香りを思い出せ。</p>
+    <div class="mt-10">
+      <a href={import.meta.env.BASE_URL} class="btn-pop bg-deco-pink text-white">🏠 ホームへ戻る</a>
+    </div>
+  </section>
+  <script>
+    const q = [
+      '迷った時は、一度深呼吸。スダチの香りを思い出せ。',
+      'バグは友達。あわてない、あわてない。',
+      '山の上で見る夜空は、すべての解答よりも雄弁だ。',
+      '迷ったら「とりあえず作ってみる」。',
+      'コンパイルは通る。きっと通る。信じろ。',
+    ];
+    const el = document.getElementById('wise');
+    if (el) el.textContent = q[Math.floor(Math.random()*q.length)];
+  </script>
+</BaseLayout>

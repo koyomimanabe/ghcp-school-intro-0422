@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-deco-cream text-deco-ink font-body;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 62, 165, 0.08) 0 12px,
+        transparent 12px 24px
+      ),
+      radial-gradient(circle at 10% 10%, rgba(107, 242, 198, 0.25), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(201, 167, 255, 0.25), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(255, 242, 90, 0.25), transparent 40%);
+    background-attachment: fixed;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><text y='22' font-size='22'>%E2%9C%A8</text></svg>") 4 4, auto;
+  }
+  ::selection {
+    @apply bg-deco-pink text-white;
+  }
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: repeating-linear-gradient(45deg, #fff 0 6px, #ffd1ea 6px 12px);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff3ea5, #c9a7ff);
+    border: 3px solid #fff;
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .text-rainbow {
+    background: linear-gradient(90deg, #ff3ea5, #fff25a, #6bf2c6, #2bd9ff, #c9a7ff, #ff3ea5);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 6s linear infinite;
+  }
+  .shadow-pop {
+    box-shadow:
+      6px 6px 0 0 #0c0a1a,
+      0 0 0 3px #0c0a1a inset;
+  }
+  .border-pop {
+    @apply border-4 border-deco-ink;
+  }
+  .btn-pop {
+    @apply inline-block font-pop px-5 py-3 border-pop rounded-full shadow-pop transition-transform;
+  }
+  .btn-pop:hover {
+    transform: translate(-2px, -2px) rotate(-1deg);
+    box-shadow: 10px 10px 0 0 #0c0a1a, 0 0 0 3px #0c0a1a inset;
+  }
+  .btn-pop:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 #0c0a1a, 0 0 0 3px #0c0a1a inset;
+  }
+  .speech {
+    @apply relative bg-white border-pop rounded-2xl px-4 py-3 shadow-pop;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 16px solid #0c0a1a;
+  }
+  .speech::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #fff;
+    z-index: 1;
+  }
+  .comic-frame {
+    @apply relative bg-white border-pop rounded-3xl shadow-pop overflow-hidden;
+  }
+  .neon {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px #ff3ea5,
+      0 0 20px #ff3ea5,
+      0 0 40px #c9a7ff;
+  }
+  .zigzag-divider {
+    --c: #0c0a1a;
+    height: 24px;
+    background:
+      linear-gradient(-45deg, var(--c) 12px, transparent 0) 0 12px / 24px 24px,
+      linear-gradient(45deg, var(--c) 12px, transparent 0) 0 12px / 24px 24px;
+    background-repeat: repeat-x;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hyper mode: user opt-in "さらに派手" */
+html.hyper body {
+  animation: rainbow 4s linear infinite;
+}
+html.hyper .neon {
+  text-shadow:
+    0 0 6px #fff,
+    0 0 14px #ff3ea5,
+    0 0 28px #fff25a,
+    0 0 56px #2bd9ff;
+}

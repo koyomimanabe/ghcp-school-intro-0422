@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HiddenEmoji from '../components/HiddenEmoji.astro';
+
+const events = [
+  { year: '2016', emoji: '💭', title: '構想スタート', desc: '「テックで起業家を育てる高専を作ろう」というアイデアが生まれた頃。' },
+  { year: '2019', emoji: '📝', title: 'プロジェクト本格始動', desc: '賛同者が集まり、カリキュラム検討や場所の議論が進む。' },
+  { year: '2021', emoji: '🏔️', title: '徳島県神山町に決定', desc: '豊かな自然と先端の文化が共存する神山町がキャンパスに選定。' },
+  { year: '2022', emoji: '🏗️', title: 'キャンパス整備', desc: '校舎・寮の準備、教員募集、入試設計が本格化。' },
+  { year: '2023', emoji: '🎉', title: '開校！', desc: '日本で約20年ぶりの高専として、神山まるごと高専 開校。' },
+  { year: '未来', emoji: '🚀', title: '世界へ', desc: '学生が作った事業やプロダクトが世界に羽ばたく…かも。' },
+];
+---
+<BaseLayout title="年表 | 神山まるごと高専 冒険サイト">
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <p class="font-pop text-xl text-deco-pink text-center">📅 HISTORY</p>
+    <h1 class="font-pop text-5xl md:text-7xl text-center neon text-rainbow mt-2">冒険のあゆみ</h1>
+    <p class="text-center mt-4 font-bold">構想から開校、そして未来まで。</p>
+
+    <ol class="mt-12 relative border-l-4 border-deco-ink ml-6 space-y-8 pl-8">
+      {events.map((e, i) => (
+        <li class={`tl-item relative ${i%2===0?'-rotate-1':'rotate-1'}`}>
+          <span class="absolute -left-[58px] top-0 w-12 h-12 rounded-full bg-deco-lemon border-4 border-deco-ink shadow-pop flex items-center justify-center text-2xl">{e.emoji}</span>
+          <div class="comic-frame p-4 bg-white">
+            <p class="font-pop text-2xl">{e.year}</p>
+            <h3 class="font-bold text-xl">{e.title}</h3>
+            <p class="text-sm mt-1 opacity-80">{e.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <p class="mt-8 text-xs opacity-60 text-center">※ 年代や詳細は非公式のイメージです。正確な情報は公式にてご確認ください。</p>
+
+    <div class="mt-8 text-right">
+      <HiddenEmoji id="timeline" emoji="⏳" hint="年表ページに隠れた絵文字！" />
+    </div>
+  </section>
+
+  <script>
+    import { initGsap } from '../lib/gsap.ts';
+    const gsap = initGsap();
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.utils.toArray('.tl-item').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+          x: i%2===0?-120:120, opacity: 0, duration: 0.7, ease: 'back.out(1.6)',
+        });
+      });
+    }
+  </script>
+</BaseLayout>

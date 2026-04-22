@@ -1,0 +1,349 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = '神山まるごと高専 冒険サイト（非公式ファンサイト）', description = '徳島県神山町の神山まるごと高専を派手に紹介する非公式ファンサイト。デコラ×冒険体験！' } = Astro.props;
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CursorPet from '../components/CursorPet.astro';
+import '../styles/global.css';
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href={`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='54' font-size='56'>✨</text></svg>`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rampart+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen relative overflow-x-hidden">
+    <!-- Splash screen (first visit only) -->
+    <div id="kmg-splash" class="fixed inset-0 z-[70] bg-deco-ink flex flex-col items-center justify-center text-white hidden">
+      <div class="text-7xl animate-bounce-slow">🏫</div>
+      <p class="font-pop text-4xl md:text-6xl neon text-rainbow mt-4">神山まるごと高専</p>
+      <p class="mt-2 font-bold">非公式★冒険サイト起動中…</p>
+      <div class="mt-6 w-64 h-4 bg-white/10 rounded-full overflow-hidden border-2 border-white">
+        <div id="kmg-splash-bar" class="h-full bg-gradient-to-r from-deco-pink via-deco-lemon to-deco-mint" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Scroll progress bar -->
+    <div class="fixed top-0 left-0 right-0 h-1.5 z-[55] pointer-events-none">
+      <div id="kmg-scroll-bar" class="h-full bg-gradient-to-r from-deco-pink via-deco-lemon via-deco-mint to-deco-electric" style="width:0%; transition: width .1s linear;"></div>
+    </div>
+
+    <canvas id="glitter-canvas" class="fixed inset-0 -z-10 pointer-events-none w-full h-full"></canvas>
+
+    <Header />
+    <main id="main" class="relative z-10">
+      <slot />
+    </main>
+    <Footer />
+    <CursorPet />
+
+    <!-- Toggle panel -->
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">
+      <button id="toggle-audio" class="btn-pop bg-deco-lemon text-deco-ink text-sm" aria-pressed="false" title="BGM/SE ON/OFF">🔈 音 OFF</button>
+      <button id="toggle-motion" class="btn-pop bg-deco-mint text-deco-ink text-sm" aria-pressed="true" title="アニメ ON/OFF">✨ 動き ON</button>
+      <button id="toggle-hyper" class="btn-pop bg-deco-pink text-white text-sm" aria-pressed="false" title="ハイパーモード">🌈 Hyper OFF</button>
+      <button id="toggle-stamp" class="btn-pop bg-deco-lavender text-deco-ink text-sm" title="スタンプラリー">📖 スタンプ</button>
+    </div>
+
+    <!-- Stamp rally modal -->
+    <div id="stamp-modal" class="fixed inset-0 z-[58] bg-black/60 hidden flex items-center justify-center p-4">
+      <div class="comic-frame bg-white p-6 max-w-md w-full relative">
+        <button id="stamp-close" class="absolute top-2 right-2 btn-pop bg-deco-pink text-white text-sm" aria-label="閉じる">✕</button>
+        <h3 class="font-pop text-3xl">📖 スタンプラリー</h3>
+        <p class="text-sm mt-1 opacity-80">各ページを訪れるとスタンプが押されるよ！</p>
+        <div id="stamp-grid" class="mt-4 grid grid-cols-4 gap-3"></div>
+        <p id="stamp-progress" class="mt-4 font-bold text-center"></p>
+      </div>
+    </div>
+
+    <!-- Sticker splash container -->
+    <div id="sticker-layer" class="pointer-events-none fixed inset-0 z-40"></div>
+
+    <script>
+      import { loadAudioPref, setAudioEnabled, isAudioEnabled, startBgm, stopBgm, blip, pickupSe } from '../lib/audio.ts';
+
+      // Glitter canvas
+      const canvas = document.getElementById('glitter-canvas') as HTMLCanvasElement | null;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function resize() {
+          canvas!.width = window.innerWidth * dpr;
+          canvas!.height = window.innerHeight * dpr;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        const particles = Array.from({ length: reduce ? 20 : 70 }, () => ({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 2 + 1,
+          s: Math.random() * 0.6 + 0.2,
+          h: Math.floor(Math.random() * 360),
+        }));
+        function tick() {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+          for (const p of particles) {
+            p.y += p.s;
+            if (p.y > window.innerHeight) p.y = -5;
+            ctx.fillStyle = `hsla(${p.h}, 90%, 70%, 0.9)`;
+            ctx.beginPath();
+            ctx.arc(p.x * dpr, p.y * dpr, p.r * dpr, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          requestAnimationFrame(tick);
+        }
+        if (!reduce) requestAnimationFrame(tick);
+      }
+
+      // Toggles
+      const audioBtn = document.getElementById('toggle-audio') as HTMLButtonElement;
+      const motionBtn = document.getElementById('toggle-motion') as HTMLButtonElement;
+      const hyperBtn = document.getElementById('toggle-hyper') as HTMLButtonElement;
+
+      loadAudioPref();
+      audioBtn.textContent = isAudioEnabled() ? '🔊 音 ON' : '🔈 音 OFF';
+      audioBtn.setAttribute('aria-pressed', String(isAudioEnabled()));
+      audioBtn.addEventListener('click', () => {
+        const on = !isAudioEnabled();
+        setAudioEnabled(on);
+        audioBtn.textContent = on ? '🔊 音 ON' : '🔈 音 OFF';
+        audioBtn.setAttribute('aria-pressed', String(on));
+        if (on) { startBgm(); blip(880); }
+        else stopBgm();
+      });
+
+      const motionOn = localStorage.getItem('kmg.motion') !== '0';
+      if (!motionOn) document.documentElement.classList.add('motion-off');
+      motionBtn.textContent = motionOn ? '✨ 動き ON' : '🛑 動き OFF';
+      motionBtn.setAttribute('aria-pressed', String(motionOn));
+      motionBtn.addEventListener('click', () => {
+        const cur = !document.documentElement.classList.contains('motion-off');
+        const next = !cur;
+        document.documentElement.classList.toggle('motion-off', !next);
+        localStorage.setItem('kmg.motion', next ? '1' : '0');
+        motionBtn.textContent = next ? '✨ 動き ON' : '🛑 動き OFF';
+        motionBtn.setAttribute('aria-pressed', String(next));
+      });
+
+      const hyperOn = localStorage.getItem('kmg.hyper') === '1';
+      if (hyperOn) document.documentElement.classList.add('hyper');
+      hyperBtn.textContent = hyperOn ? '🌈 Hyper ON' : '🌈 Hyper OFF';
+      hyperBtn.setAttribute('aria-pressed', String(hyperOn));
+      hyperBtn.addEventListener('click', () => {
+        const next = !document.documentElement.classList.contains('hyper');
+        document.documentElement.classList.toggle('hyper', next);
+        localStorage.setItem('kmg.hyper', next ? '1' : '0');
+        hyperBtn.textContent = next ? '🌈 Hyper ON' : '🌈 Hyper OFF';
+        hyperBtn.setAttribute('aria-pressed', String(next));
+      });
+
+      // Sticker splash on blank click
+      const stickerEmojis = ['✨','💖','⭐','🌈','🎀','💫','🍬','🧸','💎','🌟'];
+      const layer = document.getElementById('sticker-layer')!;
+      const stickers: HTMLElement[] = [];
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('a,button,input,textarea,select,[role="button"]')) return;
+        const s = document.createElement('div');
+        s.textContent = stickerEmojis[Math.floor(Math.random() * stickerEmojis.length)];
+        s.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${20 + Math.random()*24}px;transform:translate(-50%,-50%) rotate(${Math.random()*60-30}deg);transition:all .9s cubic-bezier(.2,.8,.2,1);pointer-events:none;filter:drop-shadow(2px 2px 0 #0c0a1a);`;
+        layer.appendChild(s);
+        requestAnimationFrame(() => {
+          s.style.left = `${e.clientX + (Math.random()*200-100)}px`;
+          s.style.top = `${e.clientY + (Math.random()*200-100)}px`;
+          s.style.opacity = '0';
+          s.style.transform = `translate(-50%,-50%) rotate(${Math.random()*720-360}deg) scale(${1+Math.random()})`;
+        });
+        stickers.push(s);
+        pickupSe();
+        if (stickers.length > 50) {
+          const old = stickers.shift();
+          old?.remove();
+        }
+        setTimeout(() => s.remove(), 1000);
+      });
+
+      // Konami code → /secret
+      const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+      let kIndex = 0;
+      window.addEventListener('keydown', (e) => {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        if (key === konami[kIndex]) {
+          kIndex++;
+          if (kIndex >= konami.length) {
+            kIndex = 0;
+            location.href = `${import.meta.env.BASE_URL}secret`;
+          }
+        } else {
+          kIndex = key === konami[0] ? 1 : 0;
+        }
+      });
+
+      // Scroll sticky-notes
+      const notes = ['今日のスダチ運、最高！','寮メシ気になる？','コード書いてる？','神山の山、元気！','LED チカチカ…','スパーク⚡感じる？'];
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (Math.abs(y - lastY) < 600) return;
+        lastY = y;
+        if (document.documentElement.classList.contains('motion-off')) return;
+        const n = document.createElement('div');
+        n.textContent = notes[Math.floor(Math.random()*notes.length)];
+        const fromLeft = Math.random() < 0.5;
+        n.style.cssText = `position:fixed;top:${80+Math.random()*300}px;${fromLeft?'left':'right'}:-250px;background:#fff25a;border:3px solid #0c0a1a;padding:8px 14px;border-radius:12px;box-shadow:4px 4px 0 #0c0a1a;z-index:45;transform:rotate(${Math.random()*12-6}deg);transition:all .8s cubic-bezier(.2,.8,.2,1);font-weight:700;`;
+        document.body.appendChild(n);
+        requestAnimationFrame(() => {
+          n.style[fromLeft?'left':'right'] = '20px';
+        });
+        setTimeout(() => {
+          n.style.opacity = '0';
+          n.style[fromLeft?'left':'right'] = '-250px';
+        }, 2500);
+        setTimeout(() => n.remove(), 3500);
+      });
+
+      // --- Scroll progress bar ---
+      const scrollBar = document.getElementById('kmg-scroll-bar') as HTMLElement | null;
+      function updateScrollBar() {
+        if (!scrollBar) return;
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+        scrollBar.style.width = `${Math.min(100, Math.max(0, p))}%`;
+      }
+      window.addEventListener('scroll', updateScrollBar, { passive: true });
+      window.addEventListener('resize', updateScrollBar);
+      updateScrollBar();
+
+      // --- Splash screen (first session) ---
+      const splash = document.getElementById('kmg-splash') as HTMLElement | null;
+      const splashBar = document.getElementById('kmg-splash-bar') as HTMLElement | null;
+      if (splash && splashBar && !sessionStorage.getItem('kmg.splashed')) {
+        splash.classList.remove('hidden');
+        let v = 0;
+        const iv = setInterval(() => {
+          v += 8 + Math.random() * 14;
+          splashBar.style.width = `${Math.min(100, v)}%`;
+          if (v >= 100) {
+            clearInterval(iv);
+            setTimeout(() => {
+              splash.style.transition = 'opacity .5s';
+              splash.style.opacity = '0';
+              setTimeout(() => splash.remove(), 500);
+            }, 200);
+          }
+        }, 120);
+        sessionStorage.setItem('kmg.splashed', '1');
+      }
+
+      // --- Stamp rally ---
+      const STAMP_PAGES: { id: string; emoji: string; label: string; path: string }[] = [
+        { id: 'home', emoji: '🏠', label: 'ホーム', path: '/' },
+        { id: 'curriculum', emoji: '📚', label: '学び', path: '/curriculum' },
+        { id: 'campus', emoji: '🏕️', label: '学生生活', path: '/campus' },
+        { id: 'timeline', emoji: '📅', label: '年表', path: '/timeline' },
+        { id: 'quiz', emoji: '🧠', label: 'クイズ', path: '/quiz' },
+        { id: 'adventure', emoji: '🎮', label: '冒険', path: '/adventure' },
+        { id: 'contact', emoji: '🔗', label: '公式', path: '/contact' },
+        { id: 'secret', emoji: '🎉', label: '秘密', path: '/secret' },
+      ];
+      function getStamps(): string[] {
+        try { return JSON.parse(localStorage.getItem('kmg.stamps') || '[]'); } catch { return []; }
+      }
+      function setStamps(arr: string[]) { localStorage.setItem('kmg.stamps', JSON.stringify(arr)); }
+      const base = import.meta.env.BASE_URL;
+      const currentPath = location.pathname.replace(base.replace(/\/$/, ''), '') || '/';
+      const cur = STAMP_PAGES.find((p) => p.path === currentPath || p.path === currentPath.replace(/\/$/, ''));
+      if (cur) {
+        const stamps = getStamps();
+        if (!stamps.includes(cur.id)) {
+          stamps.push(cur.id);
+          setStamps(stamps);
+          import('../lib/toast.ts').then((m) => m.toast(`📖 ${cur.label} のスタンプをゲット！`, 'success'));
+          if (stamps.length === STAMP_PAGES.length) {
+            import('../lib/toast.ts').then((m) => m.achievement('スタンプラリー制覇！'));
+          }
+        }
+      }
+      const stampBtn = document.getElementById('toggle-stamp');
+      const stampModal = document.getElementById('stamp-modal');
+      const stampClose = document.getElementById('stamp-close');
+      const stampGrid = document.getElementById('stamp-grid');
+      const stampProg = document.getElementById('stamp-progress');
+      function renderStamps() {
+        if (!stampGrid || !stampProg) return;
+        const stamps = getStamps();
+        stampGrid.innerHTML = '';
+        STAMP_PAGES.forEach((p) => {
+          const has = stamps.includes(p.id);
+          const cell = document.createElement('div');
+          cell.className = 'border-2 border-deco-ink rounded-xl p-2 text-center';
+          cell.style.background = has ? '#fff25a' : '#eee';
+          cell.style.opacity = has ? '1' : '0.5';
+          cell.innerHTML = `<div class="text-3xl">${has?p.emoji:'❓'}</div><div class="text-[10px] font-bold mt-1">${has?p.label:'未訪問'}</div>`;
+          stampGrid.appendChild(cell);
+        });
+        stampProg.textContent = `${stamps.length} / ${STAMP_PAGES.length} スタンプ`;
+      }
+      stampBtn?.addEventListener('click', () => { renderStamps(); stampModal?.classList.remove('hidden'); });
+      stampClose?.addEventListener('click', () => stampModal?.classList.add('hidden'));
+      stampModal?.addEventListener('click', (e) => { if (e.target === stampModal) stampModal.classList.add('hidden'); });
+
+      // --- Shake detection (mobile) → toggle Hyper ---
+      if ('DeviceMotionEvent' in window) {
+        let lastShake = 0;
+        window.addEventListener('devicemotion', (e) => {
+          const a = e.accelerationIncludingGravity;
+          if (!a) return;
+          const mag = Math.abs(a.x||0) + Math.abs(a.y||0) + Math.abs(a.z||0);
+          if (mag > 40 && Date.now() - lastShake > 1500) {
+            lastShake = Date.now();
+            document.documentElement.classList.toggle('hyper');
+            const on = document.documentElement.classList.contains('hyper');
+            localStorage.setItem('kmg.hyper', on ? '1' : '0');
+            import('../lib/toast.ts').then((m) => m.toast(on?'🌈 Hyper ON!':'🌙 Hyper OFF', 'info'));
+          }
+        });
+      }
+
+      // --- "?" key: show shortcuts help ---
+      window.addEventListener('keydown', (e) => {
+        if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
+          import('../lib/toast.ts').then((m) => {
+            m.toast('↑↑↓↓←→←→BA でシークレット、Shift+H でHyper', 'info', 3200);
+          });
+        }
+        if (e.shiftKey && (e.key === 'H' || e.key === 'h')) {
+          document.documentElement.classList.toggle('hyper');
+          const on = document.documentElement.classList.contains('hyper');
+          localStorage.setItem('kmg.hyper', on ? '1' : '0');
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  html.motion-off *,
+  html.motion-off *::before,
+  html.motion-off *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+</style>
