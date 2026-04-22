@@ -1,0 +1,150 @@
+---
+// スタッフセクション - カードフリップ
+const staffList = [
+  {
+    name: '松田 雄一郎',
+    role: '学校長',
+    emoji: '👨‍💼',
+    speciality: 'アントレプレナーシップ教育',
+    message: '失敗を恐れずに挑戦しよう。神山で一緒に世界を変えよう！',
+    color: '#FF69B4',
+    fun: '趣味はサーフィンとキャンプめぽ！',
+  },
+  {
+    name: '田中 みほ',
+    role: 'テクノロジー教員',
+    emoji: '👩‍💻',
+    speciality: 'AI・機械学習',
+    message: 'コードは言語。もうひとつの表現方法を一緒に磨こう！',
+    color: '#00FFFF',
+    fun: 'OSS活動が趣味でGitHubスターが2000超えめぽ！',
+  },
+  {
+    name: '木村 大輔',
+    role: 'デザイン教員',
+    emoji: '🎨',
+    speciality: 'UI/UX・プロダクトデザイン',
+    message: 'デザインは問題解決だ。一緒に美しい解決策を見つけよう。',
+    color: '#39FF14',
+    fun: '毎朝5km走って神山の自然を満喫してるめぽ！',
+  },
+  {
+    name: '山本 さくら',
+    role: 'キャリア支援',
+    emoji: '🌸',
+    speciality: 'スタートアップ・就活支援',
+    message: '可能性はあなた自身が一番わかってる。一緒に探そう！',
+    color: '#BF5FFF',
+    fun: '好きな食べ物は神山のゆず料理めぽ！',
+  },
+  {
+    name: '佐藤 健太',
+    role: 'エンジニア in Residence',
+    emoji: '🚀',
+    speciality: 'フルスタック開発・クラウド',
+    message: '最高の指導者は最高の学習者でもある。一緒に成長しよう！',
+    color: '#FFF01F',
+    fun: 'エスプレッソなしには生きられないめぽ☕',
+  },
+  {
+    name: '鈴木 ゆい',
+    role: '地域連携コーディネーター',
+    emoji: '🌍',
+    speciality: '地域課題解決・フィールドワーク',
+    message: '神山の人たちが最高の先生。フィールドに飛び込もう！',
+    color: '#FF69B4',
+    fun: '神山町の農家さんとお友達が100人以上いるめぽ！',
+  },
+];
+---
+
+<section id="staff" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a1a0a 0%, #0a0a1a 100%);">
+  <div class="section-container">
+    <h2 class="section-title">👥 教員・スタッフ</h2>
+
+    <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+      カードをホバーすると、スタッフのひとことが見られるめぽ！
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {staffList.map((staff, i) => (
+        <div class="card-flip-container staff-card" style={`animation-delay: ${i * 0.1}s; height: 260px;`}>
+          <div class="card-flip w-full h-full" style="position: relative; height: 260px;">
+
+            <!-- 表面 -->
+            <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center"
+                 style={`
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid ${staff.color}40;
+                   height: 260px;
+                 `}>
+              <div class="text-5xl mb-3">{staff.emoji}</div>
+              <h3 class="font-gothic text-lg font-bold text-white mb-1">{staff.name}</h3>
+              <p class="text-sm font-gothic mb-2" style={`color: ${staff.color}`}>{staff.role}</p>
+              <p class="text-xs text-gray-500">{staff.speciality}</p>
+              <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div>
+            </div>
+
+            <!-- 裏面 -->
+            <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center"
+                 style={`
+                   background: linear-gradient(135deg, ${staff.color}20, ${staff.color}05);
+                   border: 2px solid ${staff.color};
+                   box-shadow: 0 0 30px ${staff.color}40;
+                   height: 260px;
+                 `}>
+              <div class="text-3xl mb-3">💬</div>
+              <p class="text-white text-sm leading-relaxed mb-4 italic">
+                "{staff.message}"
+              </p>
+              <div class="text-xs p-2 rounded-lg" style={`background: ${staff.color}20; color: ${staff.color};`}>
+                🤫 {staff.fun}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- スタッフ募集 -->
+    <div class="mt-16 text-center p-8 rounded-2xl slide-in-up"
+         style="border: 2px dashed #FF69B440; background: rgba(255,105,180,0.05);">
+      <div class="text-4xl mb-4">🤝</div>
+      <h3 class="font-gothic text-xl mb-3" style="color: #FF69B4;">We're Hiring!</h3>
+      <p class="text-gray-400 text-sm mb-4">
+        神山まるごと高専では、情熱あるスタッフ・メンター・エンジニアを募集中めぽ！
+      </p>
+      <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer" class="btn-neon">
+        🚀 詳細を見るめぽ
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // スタッフカードのスクロール入場
+  gsap.utils.toArray('.staff-card').forEach((card: any, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: 'top 90%' },
+      duration: 0.5,
+      y: 40,
+      opacity: 0,
+      delay: i * 0.08,
+      scale: 0.9,
+      ease: 'back.out(1.7)',
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('#staff .slide-in-up').forEach(el => observer.observe(el));
+</script>

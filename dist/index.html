@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="UTF-8"><meta name="description" content="神山まるごと高専 - テクノロジー×デザイン×アントレプレナーシップの新しい高専"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/ghcp-school-intro-0422favicon.svg"><meta name="generator" content="Astro v4.16.19"><title>神山まるごと高専 — テクノロジー × デザイン × アントレプレナーシップ</title><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=DotGothic16&display=swap" rel="stylesheet"><link rel="stylesheet" href="/ghcp-school-intro-0422/_astro/index.h4Vp44oJ.css"><script type="module" src="/ghcp-school-intro-0422/_astro/hoisted.BwJ2P_UK.js"></script></head> <body> <!-- カスタムカーソル --> <div id="cursor" class="fixed pointer-events-none z-[99999] transition-transform duration-100" style="top: 0; left: 0;"> <div id="cursor-star" style="
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+    transform: translate(-50%, -50%);
+    user-select: none;
+  ">⭐</div> </div> <div id="cursor-trail" class="fixed pointer-events-none z-[99998]" style="top: 0; left: 0;"></div>  <!-- パーティクルコンテナ（クリック時ハート） --> <div id="particles-container"></div> <!-- コナミコード発動時のオーバーレイ --> <div id="konami-overlay" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0" style="background: rgba(0,0,0,0.9);"> <div class="text-center"> <div class="text-6xl mb-4" style="font-family: 'DotGothic16'">🌈 まるごとモード 🌈</div> <div class="text-2xl" style="color: #FF69B4">発動しためぽ！！</div> </div> </div> <!-- メインコンテンツ -->   <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-astro-cid-3ef6ksr2> <nav class="flex items-center justify-between px-6 py-3" style="background: linear-gradient(90deg, #FF69B4, #BF5FFF, #00FFFF, #39FF14, #FFF01F); background-size: 300% 100%;" data-astro-cid-3ef6ksr2> <!-- ロゴ --> <div id="logo" class="font-gothic text-xl font-bold text-gray-900 cursor-none select-none" title="ロゴを長押しすると秘密が見えるめぽ" data-astro-cid-3ef6ksr2>
+🏫 神山まるごと高専
+</div> <!-- ナビリンク --> <ul class="hidden md:flex gap-6 list-none m-0 p-0" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a href="#about" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> 高専について </a> </li><li data-astro-cid-3ef6ksr2> <a href="#curriculum" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> カリキュラム </a> </li><li data-astro-cid-3ef6ksr2> <a href="#campus" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> キャンパス </a> </li><li data-astro-cid-3ef6ksr2> <a href="#admission" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> 入試情報 </a> </li><li data-astro-cid-3ef6ksr2> <a href="#kamiyama" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> 神山町 </a> </li><li data-astro-cid-3ef6ksr2> <a href="#staff" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> スタッフ </a> </li><li data-astro-cid-3ef6ksr2> <a href="#minigame" class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic" data-astro-cid-3ef6ksr2> 🎮ゲーム </a> </li> </ul> <!-- モバイルハンバーガー --> <button id="menu-btn" class="md:hidden text-gray-900 text-2xl bg-transparent border-none" aria-label="メニューを開く" data-astro-cid-3ef6ksr2>
+☰
+</button> </nav> <!-- モバイルメニュー --> <div id="mobile-menu" class="hidden md:hidden" style="background: rgba(10,10,26,0.97); border-top: 2px solid #FF69B4;" data-astro-cid-3ef6ksr2> <ul class="flex flex-col gap-2 list-none p-4 m-0" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a href="#about" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> 高専について </a> </li><li data-astro-cid-3ef6ksr2> <a href="#curriculum" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> カリキュラム </a> </li><li data-astro-cid-3ef6ksr2> <a href="#campus" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> キャンパス </a> </li><li data-astro-cid-3ef6ksr2> <a href="#admission" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> 入試情報 </a> </li><li data-astro-cid-3ef6ksr2> <a href="#kamiyama" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> 神山町 </a> </li><li data-astro-cid-3ef6ksr2> <a href="#staff" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> スタッフ </a> </li><li data-astro-cid-3ef6ksr2> <a href="#minigame" class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic" data-astro-cid-3ef6ksr2> 🎮ゲーム </a> </li> </ul> </div> </header> <!-- ロゴ長押し時の秘密モーダル --> <div id="logo-secret-modal" class="modal-overlay" data-astro-cid-3ef6ksr2> <div class="modal-content" data-astro-cid-3ef6ksr2> <div class="text-4xl mb-4" data-astro-cid-3ef6ksr2>🔐</div> <h3 class="font-gothic text-2xl mb-4" style="color: #FF69B4" data-astro-cid-3ef6ksr2>開発者メッセージ</h3> <p class="text-gray-300 mb-4" data-astro-cid-3ef6ksr2>
+このサイトはGitHub Copilotと一緒に作られためぽ！<br data-astro-cid-3ef6ksr2>
+AIと人間のコラボ作品だよめぽ✨
+</p> <p class="text-sm text-gray-500 mb-4" data-astro-cid-3ef6ksr2>作成日: 2026年4月22日</p> <button onclick="document.getElementById('logo-secret-modal').classList.remove('active')" class="btn-neon" data-astro-cid-3ef6ksr2>
+閉じるめぽ
+</button> </div> </div>    <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style="background: radial-gradient(ellipse at center, #1a0030 0%, #0a0a1a 70%);"> <!-- 流れ星 --> <div id="shooting-stars" class="absolute inset-0 pointer-events-none overflow-hidden"></div> <!-- 浮遊する絵文字デコレーション --> <div class="absolute inset-0 pointer-events-none overflow-hidden"> <span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 5%;
+          top: 10%;
+          animation-delay: 0s;
+          animation-duration: 3s;
+          opacity: 0.6;
+        ">⭐</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 14.5%;
+          top: 23%;
+          animation-delay: 0.4s;
+          animation-duration: 4s;
+          opacity: 0.6;
+        ">🌸</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 24%;
+          top: 36%;
+          animation-delay: 0.8s;
+          animation-duration: 5s;
+          opacity: 0.6;
+        ">💫</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 33.5%;
+          top: 49%;
+          animation-delay: 1.2000000000000002s;
+          animation-duration: 3s;
+          opacity: 0.6;
+        ">🎀</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 43%;
+          top: 62%;
+          animation-delay: 1.6s;
+          animation-duration: 4s;
+          opacity: 0.6;
+        ">✨</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 52.5%;
+          top: 75%;
+          animation-delay: 2s;
+          animation-duration: 5s;
+          opacity: 0.6;
+        ">🌟</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 62%;
+          top: 88%;
+          animation-delay: 2.4000000000000004s;
+          animation-duration: 3s;
+          opacity: 0.6;
+        ">💖</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 71.5%;
+          top: 21%;
+          animation-delay: 2.8000000000000003s;
+          animation-duration: 4s;
+          opacity: 0.6;
+        ">🎊</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 81%;
+          top: 34%;
+          animation-delay: 3.2s;
+          animation-duration: 5s;
+          opacity: 0.6;
+        ">🦋</span><span class="absolute text-2xl md:text-4xl select-none float-animation" style="
+          left: 90.5%;
+          top: 47%;
+          animation-delay: 3.6s;
+          animation-duration: 3s;
+          opacity: 0.6;
+        ">🌈</span> </div> <!-- メインコンテンツ --> <div class="relative z-10 text-center px-6"> <!-- グリッチタイトル --> <div id="hero-title" class="mb-6"> <h1 class="glitch-container font-gothic text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-2" data-text="神山まるごと高専" style="color: #FF69B4;">
+神山まるごと高専
+</h1> <div class="font-gothic text-lg sm:text-xl md:text-2xl" style="color: #00FFFF;">
+KAMIYAMA MARUGOTO KOSEN
+</div> </div> <!-- タイプライター効果のキャッチコピー --> <div class="mb-10 h-16 flex items-center justify-center"> <p id="typewriter-text" class="font-gothic text-lg sm:text-xl md:text-2xl" style="color: #FFF01F; min-height: 2rem;"></p> </div> <!-- CTAボタン --> <div class="flex flex-col sm:flex-row gap-4 justify-center"> <a href="#about" class="btn-neon">
+🚀 冒険スタート↓
+</a> <a href="#minigame" class="btn-neon" style="border-color: #00FFFF; color: #00FFFF;">
+🎮 ゲームで遊ぶ
+</a> </div> <!-- スクロールインジケーター --> <div class="mt-16 flex flex-col items-center gap-2 animate-bounce"> <span class="text-gray-400 text-sm font-gothic">スクロールしてね</span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M12 4L12 20M12 20L6 14M12 20L18 14" stroke="#FF69B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </div> </div> </section>   <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="about" class="py-20 px-6 relative overflow-hidden"> <div class="section-container"> <h2 class="section-title slide-in-up">
+🏫 高専について
+</h2> <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto slide-in-up">
+神山まるごと高専は、日本初の「テクノロジー × デザイン × アントレプレナーシップ」に特化した5年制の私立高等専門学校めぽ。
+</p> <!-- 基本情報カード --> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"> <div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #FF69B440;
+            animation-delay: 0s;
+          " data-secret="実は試行錯誤の連続だったんだって。めぽ。"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">📅</div> <h3 class="font-gothic text-lg mb-2" style="color: #FF69B4">設立年</h3> <p class="text-white font-bold text-xl mb-2">2023年4月</p> <p class="text-gray-400 text-sm">日本初のこの教育スタイルで開校しためぽ！</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #FF69B420, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #FF69B4ee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 実は試行錯誤の連続だったんだって。めぽ。</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #FF69B4">
+クリック！
+</div> </div><div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #00FFFF40;
+            animation-delay: 0.1s;
+          " data-secret="神山町は日本のシリコンバレーと呼ばれることもあるめぽ！"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">📍</div> <h3 class="font-gothic text-lg mb-2" style="color: #00FFFF">所在地</h3> <p class="text-white font-bold text-xl mb-2">徳島県名西郡神山町</p> <p class="text-gray-400 text-sm">サテライトオフィスが集まるクリエイティブな町めぽ</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #00FFFF20, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #00FFFFee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 神山町は日本のシリコンバレーと呼ばれることもあるめぽ！</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #00FFFF">
+クリック！
+</div> </div><div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #39FF1440;
+            animation-delay: 0.2s;
+          " data-secret="卒業後は就職も進学もできるよめぽ！"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">👩‍🎓</div> <h3 class="font-gothic text-lg mb-2" style="color: #39FF14">修業年限</h3> <p class="text-white font-bold text-xl mb-2">5年制</p> <p class="text-gray-400 text-sm">高校相当の教育を専門性と組み合わせて学ぶめぽ</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #39FF1420, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #39FF14ee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 卒業後は就職も進学もできるよめぽ！</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #39FF14">
+クリック！
+</div> </div><div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #FFF01F40;
+            animation-delay: 0.30000000000000004s;
+          " data-secret="お金の心配より夢を追いかけてめぽ！"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">💰</div> <h3 class="font-gothic text-lg mb-2" style="color: #FFF01F">学費</h3> <p class="text-white font-bold text-xl mb-2">給付型奨学金あり</p> <p class="text-gray-400 text-sm">家庭の事情に関わらず学べるよう支援制度が充実めぽ</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #FFF01F20, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #FFF01Fee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 お金の心配より夢を追いかけてめぽ！</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #FFF01F">
+クリック！
+</div> </div><div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #BF5FFF40;
+            animation-delay: 0.4s;
+          " data-secret="40人全員が本気の仲間になるめぽ！"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">🔢</div> <h3 class="font-gothic text-lg mb-2" style="color: #BF5FFF">定員</h3> <p class="text-white font-bold text-xl mb-2">1学年 約40名</p> <p class="text-gray-400 text-sm">少人数で濃密な教育環境を実現しためぽ</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #BF5FFF20, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #BF5FFFee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 40人全員が本気の仲間になるめぽ！</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #BF5FFF">
+クリック！
+</div> </div><div class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid #FF69B440;
+            animation-delay: 0.5s;
+          " data-secret="教室でじっとしているだけじゃないよめぽ！世界が教室だめぽ！"> <!-- 表示コンテンツ --> <div class="relative z-10"> <div class="text-4xl mb-3">🌐</div> <h3 class="font-gothic text-lg mb-2" style="color: #FF69B4">教育スタイル</h3> <p class="text-white font-bold text-xl mb-2">プロジェクト型学習</p> <p class="text-gray-400 text-sm">実際の課題に取り組みながら学ぶ「まるごと」教育めぽ</p> </div> <!-- ホバーグロウエフェクト --> <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, #FF69B420, transparent 70%);" aria-hidden="true"></div> <!-- クリックで出た秘密テキスト --> <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300" style="background: #FF69B4ee;"> <p class="text-black font-gothic font-bold text-center text-sm">💡 教室でじっとしているだけじゃないよめぽ！世界が教室だめぽ！</p> </div> <!-- クリックヒント --> <div class="absolute bottom-2 right-3 text-xs opacity-40" style="color: #FF69B4">
+クリック！
+</div> </div> </div> <!-- キャッチフレーズ --> <div class="text-center mt-16"> <blockquote class="font-gothic text-2xl md:text-3xl max-w-3xl mx-auto" style="color: #FFF01F; text-shadow: 0 0 20px #FFF01F;">
+"学校ごと、神山町ごと、まるごと使って学ぶ"
+</blockquote> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="curriculum" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a0a1a 0%, #0d0d2b 100%);"> <div class="section-container"> <h2 class="section-title">📚 カリキュラム</h2> <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+3本柱の教育で、未来を切り拓く力を育てるめぽ！
+</p> <!-- 3本柱 --> <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"> <div class="accordion-item curriculum-card rounded-2xl overflow-hidden" style="border: 2px solid #00FFFF60; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);"> <!-- ヘッダー（クリックでアコーディオン） --> <button class="accordion-toggle w-full text-left p-6 flex items-center gap-4 hover:bg-white/5 transition-colors" aria-expanded="false"> <span class="text-5xl curriculum-icon" style="animation: float 3s ease-in-out infinite; animation-delay: 0s; display:inline-block;"> 💻 </span> <div class="flex-1"> <h3 class="font-gothic text-2xl font-bold" style="color: #00FFFF"> テクノロジー </h3> <p class="text-gray-400 text-sm">Technology</p> </div> <span class="accordion-arrow text-xl transition-transform duration-300" style="color: #00FFFF">▼</span> </button> <!-- コンテンツ（アコーディオン） --> <div class="accordion-content px-6 pb-6"> <p class="text-gray-300 mb-4 text-sm leading-relaxed">コードを書くだけじゃなく、テクノロジーで世界を変える力を身につけるめぽ</p> <ul class="space-y-2"> <li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #00FFFF">▶</span> プログラミング基礎〜応用 </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #00FFFF">▶</span> AI・機械学習 </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #00FFFF">▶</span> IoT・ハードウェア </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #00FFFF">▶</span> クラウド・インフラ </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #00FFFF">▶</span> セキュリティ </li> </ul> </div> </div><div class="accordion-item curriculum-card rounded-2xl overflow-hidden" style="border: 2px solid #FF69B460; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);"> <!-- ヘッダー（クリックでアコーディオン） --> <button class="accordion-toggle w-full text-left p-6 flex items-center gap-4 hover:bg-white/5 transition-colors" aria-expanded="false"> <span class="text-5xl curriculum-icon" style="animation: float 3.5s ease-in-out infinite; animation-delay: 0.3s; display:inline-block;"> 🎨 </span> <div class="flex-1"> <h3 class="font-gothic text-2xl font-bold" style="color: #FF69B4"> デザイン </h3> <p class="text-gray-400 text-sm">Design</p> </div> <span class="accordion-arrow text-xl transition-transform duration-300" style="color: #FF69B4">▼</span> </button> <!-- コンテンツ（アコーディオン） --> <div class="accordion-content px-6 pb-6"> <p class="text-gray-300 mb-4 text-sm leading-relaxed">見た目だけじゃない、人の心を動かすデザインを学ぶめぽ</p> <ul class="space-y-2"> <li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #FF69B4">▶</span> UI/UXデザイン </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #FF69B4">▶</span> グラフィックデザイン </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #FF69B4">▶</span> プロダクトデザイン </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #FF69B4">▶</span> サービスデザイン </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #FF69B4">▶</span> デザイン思考 </li> </ul> </div> </div><div class="accordion-item curriculum-card rounded-2xl overflow-hidden" style="border: 2px solid #39FF1460; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);"> <!-- ヘッダー（クリックでアコーディオン） --> <button class="accordion-toggle w-full text-left p-6 flex items-center gap-4 hover:bg-white/5 transition-colors" aria-expanded="false"> <span class="text-5xl curriculum-icon" style="animation: float 4s ease-in-out infinite; animation-delay: 0.6s; display:inline-block;"> 🚀 </span> <div class="flex-1"> <h3 class="font-gothic text-2xl font-bold" style="color: #39FF14"> アントレプレナーシップ </h3> <p class="text-gray-400 text-sm">Entrepreneurship</p> </div> <span class="accordion-arrow text-xl transition-transform duration-300" style="color: #39FF14">▼</span> </button> <!-- コンテンツ（アコーディオン） --> <div class="accordion-content px-6 pb-6"> <p class="text-gray-300 mb-4 text-sm leading-relaxed">挑戦を恐れず、自分で道を切り拓く精神を育てるめぽ</p> <ul class="space-y-2"> <li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #39FF14">▶</span> スタートアップ基礎 </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #39FF14">▶</span> ビジネスモデル思考 </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #39FF14">▶</span> プロジェクトマネジメント </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #39FF14">▶</span> 地域課題解決 </li><li class="flex items-center gap-2 text-gray-300 text-sm"> <span style="color: #39FF14">▶</span> 海外フィールドワーク </li> </ul> </div> </div> </div> <!-- 学習の特徴 --> <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> <div class="slide-in-left p-6 rounded-2xl" style="border: 1px solid #BF5FFF40; background: rgba(191,95,255,0.05);"> <h3 class="font-gothic text-xl mb-4" style="color: #BF5FFF;">🏗️ プロジェクト型学習（PBL）</h3> <p class="text-gray-300 text-sm leading-relaxed">
+1年目から実際のプロジェクトに参加。地域の課題を解決するプロダクトを開発しながら、テクノロジー・デザイン・ビジネスを同時に学ぶめぽ。
+</p> </div> <div class="slide-in-right p-6 rounded-2xl" style="border: 1px solid #FFF01F40; background: rgba(255,240,31,0.05);"> <h3 class="font-gothic text-xl mb-4" style="color: #FFF01F;">🌏 フィールドワーク</h3> <p class="text-gray-300 text-sm leading-relaxed">
+神山町の企業・起業家との協働や、国内外のフィールドワークを通じて、リアルな課題に向き合う経験を積むめぽ。
+</p> </div> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="campus" class="py-20 px-6 relative overflow-hidden"> <div class="section-container"> <h2 class="section-title">🏛️ キャンパス・施設</h2> <!-- メインキャンパス説明 --> <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center"> <div class="slide-in-left"> <h3 class="font-gothic text-2xl mb-4" style="color: #00FFFF;">神山町の旧校舎を活用</h3> <p class="text-gray-300 leading-relaxed mb-6">
+廃校になった神山小学校の校舎をリノベーションして誕生しためぽ。
+          古いものと新しいものが融合した、どこにもないキャンパスが広がっているめぽ。
+</p> <p class="text-gray-300 leading-relaxed">
+山・川・里山に囲まれた自然環境の中で、
+          最先端のテクノロジーとリアルな課題解決に取り組むめぽ！
+</p> </div> <!-- キャンパスマップ風イラスト --> <div class="slide-in-right"> <div class="campus-viz rounded-2xl p-6 relative overflow-hidden" style="background: linear-gradient(135deg, #0d1b2a, #1a3a4a); border: 2px solid #00FFFF40; min-height: 280px;"> <div class="font-gothic text-center text-sm mb-4" style="color: #00FFFF;">🗺️ キャンパスマップ（イメージ）</div> <!-- グリッド --> <div class="grid grid-cols-3 gap-3"> <div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #FF69B415; border: 1px solid #FF69B440;"> <div class="text-2xl mb-1">🏫</div> <div class="text-xs font-gothic" style="color: #FF69B4">校舎棟</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #00FFFF15; border: 1px solid #00FFFF40;"> <div class="text-2xl mb-1">💻</div> <div class="text-xs font-gothic" style="color: #00FFFF">ラボ</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #39FF1415; border: 1px solid #39FF1440;"> <div class="text-2xl mb-1">🎨</div> <div class="text-xs font-gothic" style="color: #39FF14">スタジオ</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #39FF1415; border: 1px solid #39FF1440;"> <div class="text-2xl mb-1">🌳</div> <div class="text-xs font-gothic" style="color: #39FF14">里山</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #FFF01F15; border: 1px solid #FFF01F40;"> <div class="text-2xl mb-1">🍱</div> <div class="text-xs font-gothic" style="color: #FFF01F">食堂</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #BF5FFF15; border: 1px solid #BF5FFF40;"> <div class="text-2xl mb-1">🛏️</div> <div class="text-xs font-gothic" style="color: #BF5FFF">寮</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #FFF01F15; border: 1px solid #FFF01F40;"> <div class="text-2xl mb-1">⚽</div> <div class="text-xs font-gothic" style="color: #FFF01F">運動場</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #FF69B415; border: 1px solid #FF69B440;"> <div class="text-2xl mb-1">📚</div> <div class="text-xs font-gothic" style="color: #FF69B4">図書室</div> </div><div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110" style="background: #00FFFF15; border: 1px solid #00FFFF40;"> <div class="text-2xl mb-1">🚿</div> <div class="text-xs font-gothic" style="color: #00FFFF">温泉♨️</div> </div> </div> </div> </div> </div> <!-- 施設詳細カード --> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> <div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #00FFFF30;
+            animation-delay: 0s;
+          "> <div class="text-3xl mb-3">💻</div> <h3 class="font-gothic text-lg mb-2" style="color: #00FFFF">テクノロジーラボ</h3> <p class="text-gray-400 text-sm leading-relaxed">最新の開発環境・3Dプリンター・電子工作設備が充実しためぽ。ハードもソフトも作れるめぽ！</p> </div><div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #FF69B430;
+            animation-delay: 0.1s;
+          "> <div class="text-3xl mb-3">🎨</div> <h3 class="font-gothic text-lg mb-2" style="color: #FF69B4">デザインスタジオ</h3> <p class="text-gray-400 text-sm leading-relaxed">プロ仕様のMacやデザインツールが揃う創作空間めぽ。アイデアを形にしようめぽ！</p> </div><div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #BF5FFF30;
+            animation-delay: 0.2s;
+          "> <div class="text-3xl mb-3">🏡</div> <h3 class="font-gothic text-lg mb-2" style="color: #BF5FFF">学生寮</h3> <p class="text-gray-400 text-sm leading-relaxed">全寮制（予定）でクラスメイトと24時間一緒に生活・学習できるめぽ！</p> </div><div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #39FF1430;
+            animation-delay: 0.30000000000000004s;
+          "> <div class="text-3xl mb-3">🌾</div> <h3 class="font-gothic text-lg mb-2" style="color: #39FF14">神山里山</h3> <p class="text-gray-400 text-sm leading-relaxed">田んぼや畑でのフィールドワークも。自然から学ぶカリキュラムもあるめぽ！</p> </div><div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #FFF01F30;
+            animation-delay: 0.4s;
+          "> <div class="text-3xl mb-3">☕</div> <h3 class="font-gothic text-lg mb-2" style="color: #FFF01F">コワーキングスペース</h3> <p class="text-gray-400 text-sm leading-relaxed">神山町のサテライトオフィスとつながり、プロとコラボできる環境があるめぽ！</p> </div><div class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300" style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid #FF69B430;
+            animation-delay: 0.5s;
+          "> <div class="text-3xl mb-3">♨️</div> <h3 class="font-gothic text-lg mb-2" style="color: #FF69B4">温泉のある町</h3> <p class="text-gray-400 text-sm leading-relaxed">神山町には温泉もあるめぽ！疲れた日は温泉でリフレッシュしようめぽ〜</p> </div> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="admission" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a0a1a 0%, #1a0030 100%);"> <div class="section-container"> <h2 class="section-title">📝 入試・応募</h2> <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+神山まるごと高専への入学方法を紹介するめぽ！
+</p> <!-- 入試情報カード --> <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"> <!-- 入試種別 --> <div class="slide-in-left p-8 rounded-2xl" style="border: 2px solid #FF69B440; background: rgba(255,105,180,0.05);"> <h3 class="font-gothic text-2xl mb-6" style="color: #FF69B4;">🎯 入試種別</h3> <div class="space-y-4"> <div class="flex items-start gap-3 p-3 rounded-xl" style="background: #FF69B410; border: 1px solid #FF69B430;"> <span class="text-lg" style="color: #FF69B4">◆</span> <div> <div class="font-gothic font-bold text-white">一般入試</div> <div class="text-gray-400 text-sm">筆記試験・面接・書類審査</div> </div> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: #00FFFF10; border: 1px solid #00FFFF30;"> <span class="text-lg" style="color: #00FFFF">◆</span> <div> <div class="font-gothic font-bold text-white">推薦入試</div> <div class="text-gray-400 text-sm">中学校長推薦＋面接・作文</div> </div> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: #39FF1410; border: 1px solid #39FF1430;"> <span class="text-lg" style="color: #39FF14">◆</span> <div> <div class="font-gothic font-bold text-white">AO入試</div> <div class="text-gray-400 text-sm">ポートフォリオ＋面接・プレゼン</div> </div> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: #BF5FFF10; border: 1px solid #BF5FFF30;"> <span class="text-lg" style="color: #BF5FFF">◆</span> <div> <div class="font-gothic font-bold text-white">帰国子女・留学生枠</div> <div class="text-gray-400 text-sm">英語面接・書類審査</div> </div> </div> </div> </div> <!-- スケジュール --> <div class="slide-in-right p-8 rounded-2xl" style="border: 2px solid #00FFFF40; background: rgba(0,255,255,0.03);"> <h3 class="font-gothic text-2xl mb-6" style="color: #00FFFF;">📅 スケジュール（目安）</h3> <div class="space-y-4 relative"> <!-- タイムライン線 --> <div class="absolute left-3 top-4 bottom-4 w-0.5" style="background: linear-gradient(180deg, #00FFFF, #BF5FFF);"></div> <div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #00FFFF"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #00FFFF">6月〜</span> <span class="text-gray-300 text-sm">学校説明会・オープンキャンパス</span> </div> </div><div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #39FF14"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #39FF14">9月〜</span> <span class="text-gray-300 text-sm">出願受付開始</span> </div> </div><div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #FFF01F"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #FFF01F">11月</span> <span class="text-gray-300 text-sm">AO・推薦入試</span> </div> </div><div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #FF69B4"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #FF69B4">1月〜</span> <span class="text-gray-300 text-sm">一般入試</span> </div> </div><div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #BF5FFF"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #BF5FFF">3月</span> <span class="text-gray-300 text-sm">合格発表・手続き</span> </div> </div><div class="flex items-center gap-4 pl-8"> <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style="background: #FF69B4"></div> <div> <span class="font-gothic font-bold text-sm mr-2" style="color: #FF69B4">4月</span> <span class="text-gray-300 text-sm">入学式 🎉</span> </div> </div> </div> </div> </div> <!-- 奨学金情報 --> <div class="p-8 rounded-2xl mb-12 slide-in-up" style="border: 2px solid #39FF1440; background: rgba(57,255,20,0.05);"> <h3 class="font-gothic text-2xl mb-4" style="color: #39FF14;">💰 給付型奨学金</h3> <p class="text-gray-300 mb-4 leading-relaxed">
+経済的な事情に関わらず学べるよう、充実した給付型奨学金制度があるめぽ。
+        入学試験の成績・経済状況に応じて支給されるめぽ。詳細は公式サイトで確認してめぽ！
+</p> <div class="flex flex-wrap gap-3"> <span class="px-4 py-2 rounded-full font-gothic text-sm font-bold" style="background: rgba(57,255,20,0.15); border: 1px solid #39FF14; color: #39FF14;">
+✓ 授業料免除 </span><span class="px-4 py-2 rounded-full font-gothic text-sm font-bold" style="background: rgba(57,255,20,0.15); border: 1px solid #39FF14; color: #39FF14;">
+✓ 生活費支援 </span><span class="px-4 py-2 rounded-full font-gothic text-sm font-bold" style="background: rgba(57,255,20,0.15); border: 1px solid #39FF14; color: #39FF14;">
+✓ 住居費支援 </span><span class="px-4 py-2 rounded-full font-gothic text-sm font-bold" style="background: rgba(57,255,20,0.15); border: 1px solid #39FF14; color: #39FF14;">
+✓ 渡航費支援 </span> </div> </div> <!-- 裏技ボタン --> <div class="text-center"> <button id="reveal-tips-btn" class="btn-neon text-lg">
+💡 クリックして受験のコツを見るめぽ！
+</button> </div> <!-- 隠しメッセージ（受験のコツ） --> <div id="admission-tips" class="mt-8 p-8 rounded-2xl hidden" style="border: 2px solid #FFF01F; background: rgba(255,240,31,0.08);"> <h3 class="font-gothic text-2xl mb-6 text-center" style="color: #FFF01F;">🔓 受験のコツ（内緒だよめぽ）</h3> <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">🎯</span> <p class="text-gray-300 text-sm">「なぜ神山まるごと高専？」の答えを自分の言葉で準備しよう</p> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">💼</span> <p class="text-gray-300 text-sm">ポートフォリオには「失敗した挑戦」も入れると好印象めぽ！</p> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">🏫</span> <p class="text-gray-300 text-sm">オープンキャンパスに参加してリアルな雰囲気を感じようめぽ</p> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">🌟</span> <p class="text-gray-300 text-sm">テクノロジー・デザイン・ビジネスの3つに興味があることをアピールしようめぽ</p> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">🤔</span> <p class="text-gray-300 text-sm">「やりたいこと」より「なぜやりたいか」を深く考えようめぽ</p> </div><div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);"> <span class="text-xl">📱</span> <p class="text-gray-300 text-sm">SNSで在校生・教員をフォローして情報収集も有効めぽ！</p> </div> </div> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="kamiyama" class="py-20 px-6 relative overflow-hidden" style="background: linear-gradient(180deg, #1a0030 0%, #0a1a0a 100%);"> <!-- 背景デコLeaf --> <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-10"> <span class="absolute text-6xl" style="
+        left: 0%;
+        top: 0%;
+        transform: rotate(0deg);
+      ">🌿</span><span class="absolute text-6xl" style="
+        left: 22%;
+        top: 17%;
+        transform: rotate(45deg);
+      ">🍃</span><span class="absolute text-6xl" style="
+        left: 44%;
+        top: 34%;
+        transform: rotate(90deg);
+      ">🌾</span><span class="absolute text-6xl" style="
+        left: 66%;
+        top: 51%;
+        transform: rotate(135deg);
+      ">🌱</span><span class="absolute text-6xl" style="
+        left: 88%;
+        top: 68%;
+        transform: rotate(180deg);
+      ">🌲</span> </div> <div class="section-container relative z-10"> <h2 class="section-title">🏔️ 神山町</h2> <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+神山まるごと高専の舞台、徳島県神山町を紹介するめぽ！
+</p> <!-- MAP風レイアウト --> <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center"> <!-- 神山町MAP風イラスト --> <div class="slide-in-left"> <div class="relative rounded-3xl overflow-hidden p-6" style="background: linear-gradient(135deg, #0d2b1a, #1a3d1a); border: 3px solid #39FF14; min-height: 350px;"> <div class="font-gothic text-center mb-4 text-sm" style="color: #39FF14;">🗺️ 神山町MAG（can MAP）</div> <!-- MAP要素 --> <div class="relative" style="height: 270px;"> <!-- 川 --> <div class="absolute" style="
+              bottom: 40px; left: 10%; right: 10%;
+              height: 20px;
+              background: linear-gradient(90deg, #00FFFF40, #00FFFF80, #00FFFF40);
+              border-radius: 10px;
+              box-shadow: 0 0 15px #00FFFF;
+            "> <span class="absolute top-0 left-1/2 -translate-x-1/2 text-xs" style="color: #00FFFF;">鮎喰川 💧</span> </div> <!-- 山々 --> <div class="absolute bottom-16" style="
+                     left: 5%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(70px / 2) solid transparent;
+                     border-right: calc(70px / 2) solid transparent;
+                     border-bottom: 70px solid #2d5a2d;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm"></span> </div><div class="absolute bottom-16" style="
+                     left: 15%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(100px / 2) solid transparent;
+                     border-right: calc(100px / 2) solid transparent;
+                     border-bottom: 100px solid #1e4a1e;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm">🏔️</span> </div><div class="absolute bottom-16" style="
+                     left: 30%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(80px / 2) solid transparent;
+                     border-right: calc(80px / 2) solid transparent;
+                     border-bottom: 80px solid #2a5a2a;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm"></span> </div><div class="absolute bottom-16" style="
+                     left: 55%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(90px / 2) solid transparent;
+                     border-right: calc(90px / 2) solid transparent;
+                     border-bottom: 90px solid #1a4a1a;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm">🏔️</span> </div><div class="absolute bottom-16" style="
+                     left: 70%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(75px / 2) solid transparent;
+                     border-right: calc(75px / 2) solid transparent;
+                     border-bottom: 75px solid #2d5a2d;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm"></span> </div><div class="absolute bottom-16" style="
+                     left: 82%;
+                     width: 0;
+                     height: 0;
+                     border-left: calc(85px / 2) solid transparent;
+                     border-right: calc(85px / 2) solid transparent;
+                     border-bottom: 85px solid #1e4a1e;
+                   "> <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm"></span> </div> <!-- スポット --> <div class="absolute text-center" style="top: 30%; left: 40%; transform: translate(-50%, -50%);"> <div class="text-2xl float-animation" style="animation-delay: 0.9032868320932628s;">🏫</div> <div class="text-xs mt-1 whitespace-nowrap font-gothic" style="color: #FF69B4; text-shadow: 0 0 5px #FF69B4;">神山まるごと高専</div> </div><div class="absolute text-center" style="top: 20%; left: 60%; transform: translate(-50%, -50%);"> <div class="text-2xl float-animation" style="animation-delay: 0.7201254912570547s;">🏡</div> <div class="text-xs mt-1 whitespace-nowrap font-gothic" style="color: #00FFFF; text-shadow: 0 0 5px #00FFFF;">サテライトオフィス群</div> </div><div class="absolute text-center" style="top: 45%; left: 25%; transform: translate(-50%, -50%);"> <div class="text-2xl float-animation" style="animation-delay: 0.2999260516957143s;">⛩️</div> <div class="text-xs mt-1 whitespace-nowrap font-gothic" style="color: #FFF01F; text-shadow: 0 0 5px #FFF01F;">神社</div> </div><div class="absolute text-center" style="top: 15%; left: 20%; transform: translate(-50%, -50%);"> <div class="text-2xl float-animation" style="animation-delay: 0.3313906939214335s;">♨️</div> <div class="text-xs mt-1 whitespace-nowrap font-gothic" style="color: #BF5FFF; text-shadow: 0 0 5px #BF5FFF;">温泉</div> </div> </div> </div> </div> <!-- 説明テキスト --> <div class="slide-in-right space-y-6"> <div class="p-6 rounded-2xl" style="border: 1px solid #39FF1440; background: rgba(57,255,20,0.05);"> <h3 class="font-gothic text-xl mb-3" style="color: #39FF14;">🌱 クリエイティブな田舎</h3> <p class="text-gray-300 text-sm leading-relaxed">
+神山町は人口約5000人の小さな山あいの町めぽ。
+            しかしIT企業・クリエイターのサテライトオフィスが30以上集まる、
+            日本有数のクリエイティブな場所になっているめぽ。
+</p> </div> <div class="p-6 rounded-2xl" style="border: 1px solid #00FFFF40; background: rgba(0,255,255,0.03);"> <h3 class="font-gothic text-xl mb-3" style="color: #00FFFF;">🏢 サテライトオフィスの聖地</h3> <p class="text-gray-300 text-sm leading-relaxed">
+サイボウズ・Sansan・モノサスなど名だたる企業がオフィスを置く町めぽ。
+            高専生も実際にプロと一緒に働く機会があるめぽ！
+</p> </div> <div class="p-6 rounded-2xl" style="border: 1px solid #BF5FFF40; background: rgba(191,95,255,0.05);"> <h3 class="font-gothic text-xl mb-3" style="color: #BF5FFF;">🎨 アート・文化</h3> <p class="text-gray-300 text-sm leading-relaxed">
+アーティスト・イン・レジデンスも活発で、世界中のアーティストが神山町に滞在するめぽ。
+            文化とテクノロジーが交差する不思議な空間めぽ✨
+</p> </div> </div> </div> <!-- 神山町データ --> <div class="grid grid-cols-2 md:grid-cols-4 gap-4"> <div class="text-center p-4 rounded-2xl slide-in-up" style="border: 1px solid #FF69B440; background: #FF69B408;"> <div class="font-gothic text-2xl font-bold" style="color: #FF69B4">5,000</div> <div class="text-gray-400 text-xs">人</div> <div class="text-gray-500 text-xs mt-1">人口</div> </div><div class="text-center p-4 rounded-2xl slide-in-up" style="border: 1px solid #00FFFF40; background: #00FFFF08;"> <div class="font-gothic text-2xl font-bold" style="color: #00FFFF">30+</div> <div class="text-gray-400 text-xs">社</div> <div class="text-gray-500 text-xs mt-1">サテライトオフィス</div> </div><div class="text-center p-4 rounded-2xl slide-in-up" style="border: 1px solid #39FF1440; background: #39FF1408;"> <div class="font-gothic text-2xl font-bold" style="color: #39FF14">海抜</div> <div class="text-gray-400 text-xs">300m</div> <div class="text-gray-500 text-xs mt-1">豊かな自然環境</div> </div><div class="text-center p-4 rounded-2xl slide-in-up" style="border: 1px solid #BF5FFF40; background: #BF5FFF08;"> <div class="font-gothic text-2xl font-bold" style="color: #BF5FFF">1,200</div> <div class="text-gray-400 text-xs">年</div> <div class="text-gray-500 text-xs mt-1">歴史ある神社</div> </div> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="staff" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a1a0a 0%, #0a0a1a 100%);"> <div class="section-container"> <h2 class="section-title">👥 教員・スタッフ</h2> <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+カードをホバーすると、スタッフのひとことが見られるめぽ！
+</p> <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> <div class="card-flip-container staff-card" style="animation-delay: 0s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #FF69B440;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">👨‍💼</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">松田 雄一郎</h3> <p class="text-sm font-gothic mb-2" style="color: #FF69B4">学校長</p> <p class="text-xs text-gray-500">アントレプレナーシップ教育</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #FF69B420, #FF69B405);
+                   border: 2px solid #FF69B4;
+                   box-shadow: 0 0 30px #FF69B440;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"失敗を恐れずに挑戦しよう。神山で一緒に世界を変えよう！"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #FF69B420; color: #FF69B4;">
+🤫 趣味はサーフィンとキャンプめぽ！ </div> </div> </div> </div><div class="card-flip-container staff-card" style="animation-delay: 0.1s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #00FFFF40;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">👩‍💻</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">田中 みほ</h3> <p class="text-sm font-gothic mb-2" style="color: #00FFFF">テクノロジー教員</p> <p class="text-xs text-gray-500">AI・機械学習</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #00FFFF20, #00FFFF05);
+                   border: 2px solid #00FFFF;
+                   box-shadow: 0 0 30px #00FFFF40;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"コードは言語。もうひとつの表現方法を一緒に磨こう！"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #00FFFF20; color: #00FFFF;">
+🤫 OSS活動が趣味でGitHubスターが2000超えめぽ！ </div> </div> </div> </div><div class="card-flip-container staff-card" style="animation-delay: 0.2s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #39FF1440;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">🎨</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">木村 大輔</h3> <p class="text-sm font-gothic mb-2" style="color: #39FF14">デザイン教員</p> <p class="text-xs text-gray-500">UI/UX・プロダクトデザイン</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #39FF1420, #39FF1405);
+                   border: 2px solid #39FF14;
+                   box-shadow: 0 0 30px #39FF1440;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"デザインは問題解決だ。一緒に美しい解決策を見つけよう。"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #39FF1420; color: #39FF14;">
+🤫 毎朝5km走って神山の自然を満喫してるめぽ！ </div> </div> </div> </div><div class="card-flip-container staff-card" style="animation-delay: 0.30000000000000004s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #BF5FFF40;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">🌸</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">山本 さくら</h3> <p class="text-sm font-gothic mb-2" style="color: #BF5FFF">キャリア支援</p> <p class="text-xs text-gray-500">スタートアップ・就活支援</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #BF5FFF20, #BF5FFF05);
+                   border: 2px solid #BF5FFF;
+                   box-shadow: 0 0 30px #BF5FFF40;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"可能性はあなた自身が一番わかってる。一緒に探そう！"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #BF5FFF20; color: #BF5FFF;">
+🤫 好きな食べ物は神山のゆず料理めぽ！ </div> </div> </div> </div><div class="card-flip-container staff-card" style="animation-delay: 0.4s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #FFF01F40;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">🚀</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">佐藤 健太</h3> <p class="text-sm font-gothic mb-2" style="color: #FFF01F">エンジニア in Residence</p> <p class="text-xs text-gray-500">フルスタック開発・クラウド</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #FFF01F20, #FFF01F05);
+                   border: 2px solid #FFF01F;
+                   box-shadow: 0 0 30px #FFF01F40;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"最高の指導者は最高の学習者でもある。一緒に成長しよう！"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #FFF01F20; color: #FFF01F;">
+🤫 エスプレッソなしには生きられないめぽ☕ </div> </div> </div> </div><div class="card-flip-container staff-card" style="animation-delay: 0.5s; height: 260px;"> <div class="card-flip w-full h-full" style="position: relative; height: 260px;"> <!-- 表面 --> <div class="card-front p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+                   border: 2px solid #FF69B440;
+                   height: 260px;
+                 "> <div class="text-5xl mb-3">🌍</div> <h3 class="font-gothic text-lg font-bold text-white mb-1">鈴木 ゆい</h3> <p class="text-sm font-gothic mb-2" style="color: #FF69B4">地域連携コーディネーター</p> <p class="text-xs text-gray-500">地域課題解決・フィールドワーク</p> <div class="mt-3 text-xs text-gray-600">← ホバーでひとこと</div> </div> <!-- 裏面 --> <div class="card-back p-6 rounded-2xl flex flex-col items-center justify-center text-center" style="
+                   background: linear-gradient(135deg, #FF69B420, #FF69B405);
+                   border: 2px solid #FF69B4;
+                   box-shadow: 0 0 30px #FF69B440;
+                   height: 260px;
+                 "> <div class="text-3xl mb-3">💬</div> <p class="text-white text-sm leading-relaxed mb-4 italic">
+"神山の人たちが最高の先生。フィールドに飛び込もう！"
+</p> <div class="text-xs p-2 rounded-lg" style="background: #FF69B420; color: #FF69B4;">
+🤫 神山町の農家さんとお友達が100人以上いるめぽ！ </div> </div> </div> </div> </div> <!-- スタッフ募集 --> <div class="mt-16 text-center p-8 rounded-2xl slide-in-up" style="border: 2px dashed #FF69B440; background: rgba(255,105,180,0.05);"> <div class="text-4xl mb-4">🤝</div> <h3 class="font-gothic text-xl mb-3" style="color: #FF69B4;">We're Hiring!</h3> <p class="text-gray-400 text-sm mb-4">
+神山まるごと高専では、情熱あるスタッフ・メンター・エンジニアを募集中めぽ！
+</p> <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer" class="btn-neon">
+🚀 詳細を見るめぽ
+</a> </div> </div> </section>  <hr class="neon-divider" data-astro-cid-j7pv25f6>  <section id="minigame" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a0a1a 0%, #0d0a1a 100%);"> <div class="section-container"> <h2 class="section-title">🎮 神山まるごとアドベンチャー</h2> <p class="text-center text-gray-300 mb-8">
+神山高専生キャラを操作して入学を目指すめぽ！<br> <span class="text-sm text-gray-500">← → / WASD: 移動 ｜ スペース / ↑: ジャンプ</span> </p> <!-- ゲームコンテナ --> <div class="flex flex-col items-center gap-4"> <!-- スコアとライフ表示 --> <div class="flex gap-8 font-gothic text-lg" style="color: #FFF01F;"> <span>💡 知識: <span id="game-score">0</span></span> <span>❤️ ライフ: <span id="game-lives">3</span></span> <span>🏃 距離: <span id="game-distance">0</span>m</span> </div> <!-- ゲームキャンバス --> <div class="relative" style="border: 3px solid #FF69B4; border-radius: 12px; box-shadow: 0 0 30px rgba(255,105,180,0.3);"> <canvas id="game-canvas" width="800" height="300" style="display: block; border-radius: 9px; max-width: 100%;"></canvas> <!-- ゲームオーバー/クリア オーバーレイ --> <div id="game-overlay" class="absolute inset-0 flex flex-col items-center justify-center rounded-xl" style="background: rgba(0,0,0,0.85); display: none !important;"> <div id="overlay-emoji" class="text-6xl mb-4">🎮</div> <div id="overlay-title" class="font-gothic text-3xl mb-3" style="color: #FF69B4;"></div> <div id="overlay-message" class="text-gray-300 text-center mb-6 max-w-sm"></div> <button id="restart-btn" class="btn-neon">もう一度めぽ！</button> </div> </div> <!-- 操作ボタン（モバイル用） --> <div class="flex gap-4 md:hidden mt-2"> <button id="btn-left" class="btn-neon px-6 py-3">←</button> <button id="btn-jump" class="btn-neon px-6 py-3">↑ Jump</button> <button id="btn-right" class="btn-neon px-6 py-3">→</button> </div> <p class="text-xs text-gray-600 text-center">
+※ PCでは矢印キー・WASD・スペースキーで操作できるめぽ
+</p> </div> </div> </section>   <footer class="relative pt-16 pb-8 px-6" style="background: linear-gradient(180deg, #0a0a1a 0%, #16213e 100%); border-top: 2px solid #FF69B4;"> <div class="max-w-1200 mx-auto text-center"> <!-- 絵文字の海 --> <div class="text-4xl mb-6 leading-loose" id="footer-emojis">
+🌸🎀⭐✨💫🌈🎮🏫🗻🌊🦋🎨🚀💡🤝🎯🌟💖🎉🎊
+</div> <!-- メインメッセージ --> <h2 class="font-gothic text-2xl md:text-3xl mb-4" style="color: #FF69B4">
+ここまで来たあなたはえらいめぽ！
+</h2> <p class="text-gray-400 mb-8 text-lg">
+神山まるごと高専で、あなたの可能性を広げようめぽ ✨
+</p> <!-- 情報リンク --> <div class="flex flex-wrap justify-center gap-6 mb-8"> <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer" class="text-electric-blue hover:text-white transition-colors font-gothic">
+🌐 公式サイト
+</a> <a href="https://twitter.com/kamiyamakosen" target="_blank" rel="noopener noreferrer" class="text-electric-blue hover:text-white transition-colors font-gothic">
+🐦 Twitter/X
+</a> <a href="https://www.instagram.com/kamiyamakosen" target="_blank" rel="noopener noreferrer" class="text-electric-blue hover:text-white transition-colors font-gothic">
+📸 Instagram
+</a> </div> <!-- 秘密の絵文字（3回クリックで隠しメッセージ） --> <div class="mb-8"> <span id="secret-emoji" class="text-3xl cursor-pointer select-none inline-block" title="3回クリックしてみてめぽ...">🔮</span> <span class="text-xs text-gray-600 ml-2">← ここをクリック...</span> </div> <!-- 区切り線 --> <hr class="neon-divider"> <!-- コピーライト --> <div class="mt-6 space-y-2"> <p class="text-gray-500 text-sm font-gothic">
+© 2024 神山まるごと高専
+</p> <p class="text-gray-600 text-xs">
+このサイトはファンメイドのデモページめぽ。
+        公式情報は <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline">公式サイト</a> をご確認くださいめぽ。
+</p> <p class="text-gray-700 text-xs mt-2">
+🤖 GitHub Copilot と一緒に作ったよめぽ
+</p> </div> </div> </footer> <!-- 秘密モーダル --> <div id="footer-secret-modal" class="modal-overlay"> <div class="modal-content"> <div class="text-5xl mb-4">🔮✨🔮</div> <h3 class="font-gothic text-2xl mb-4" style="color: #BF5FFF;">発見しためぽ！！</h3> <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+神山まるごと高専の隠しメッセージめぽ：<br><br>
+「<span style="color: #FF69B4">挑戦することを恐れるな</span>」<br>
+「<span style="color: #00FFFF">失敗は最高の教科書だ</span>」<br>
+「<span style="color: #39FF14">神山で、世界を変えよう</span>」
+</p> <p class="text-gray-500 text-sm mb-4">
+コナミコード（↑↑↓↓←→←→BA）も試してみてめぽ！
+</p> <button id="close-footer-modal" class="btn-neon">
+わかっためぽ！
+</button> </div> </div>     <!-- GSAP -->  </body> </html> 

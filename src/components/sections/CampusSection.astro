@@ -1,0 +1,153 @@
+---
+// キャンパス・施設セクション
+---
+
+<section id="campus" class="py-20 px-6 relative overflow-hidden">
+  <div class="section-container">
+    <h2 class="section-title">🏛️ キャンパス・施設</h2>
+
+    <!-- メインキャンパス説明 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
+      <div class="slide-in-left">
+        <h3 class="font-gothic text-2xl mb-4" style="color: #00FFFF;">神山町の旧校舎を活用</h3>
+        <p class="text-gray-300 leading-relaxed mb-6">
+          廃校になった神山小学校の校舎をリノベーションして誕生しためぽ。
+          古いものと新しいものが融合した、どこにもないキャンパスが広がっているめぽ。
+        </p>
+        <p class="text-gray-300 leading-relaxed">
+          山・川・里山に囲まれた自然環境の中で、
+          最先端のテクノロジーとリアルな課題解決に取り組むめぽ！
+        </p>
+      </div>
+
+      <!-- キャンパスマップ風イラスト -->
+      <div class="slide-in-right">
+        <div class="campus-viz rounded-2xl p-6 relative overflow-hidden"
+             style="background: linear-gradient(135deg, #0d1b2a, #1a3a4a); border: 2px solid #00FFFF40; min-height: 280px;">
+          <div class="font-gothic text-center text-sm mb-4" style="color: #00FFFF;">🗺️ キャンパスマップ（イメージ）</div>
+
+          <!-- グリッド -->
+          <div class="grid grid-cols-3 gap-3">
+            {[
+              { icon: '🏫', label: '校舎棟', color: '#FF69B4' },
+              { icon: '💻', label: 'ラボ', color: '#00FFFF' },
+              { icon: '🎨', label: 'スタジオ', color: '#39FF14' },
+              { icon: '🌳', label: '里山', color: '#39FF14' },
+              { icon: '🍱', label: '食堂', color: '#FFF01F' },
+              { icon: '🛏️', label: '寮', color: '#BF5FFF' },
+              { icon: '⚽', label: '運動場', color: '#FFF01F' },
+              { icon: '📚', label: '図書室', color: '#FF69B4' },
+              { icon: '🚿', label: '温泉♨️', color: '#00FFFF' },
+            ].map(spot => (
+              <div class="campus-spot p-3 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-110"
+                   style={`background: ${spot.color}15; border: 1px solid ${spot.color}40;`}>
+                <div class="text-2xl mb-1">{spot.icon}</div>
+                <div class="text-xs font-gothic" style={`color: ${spot.color}`}>{spot.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 施設詳細カード -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        {
+          icon: '💻',
+          title: 'テクノロジーラボ',
+          desc: '最新の開発環境・3Dプリンター・電子工作設備が充実しためぽ。ハードもソフトも作れるめぽ！',
+          color: '#00FFFF',
+        },
+        {
+          icon: '🎨',
+          title: 'デザインスタジオ',
+          desc: 'プロ仕様のMacやデザインツールが揃う創作空間めぽ。アイデアを形にしようめぽ！',
+          color: '#FF69B4',
+        },
+        {
+          icon: '🏡',
+          title: '学生寮',
+          desc: '全寮制（予定）でクラスメイトと24時間一緒に生活・学習できるめぽ！',
+          color: '#BF5FFF',
+        },
+        {
+          icon: '🌾',
+          title: '神山里山',
+          desc: '田んぼや畑でのフィールドワークも。自然から学ぶカリキュラムもあるめぽ！',
+          color: '#39FF14',
+        },
+        {
+          icon: '☕',
+          title: 'コワーキングスペース',
+          desc: '神山町のサテライトオフィスとつながり、プロとコラボできる環境があるめぽ！',
+          color: '#FFF01F',
+        },
+        {
+          icon: '♨️',
+          title: '温泉のある町',
+          desc: '神山町には温泉もあるめぽ！疲れた日は温泉でリフレッシュしようめぽ〜',
+          color: '#FF69B4',
+        },
+      ].map((facility, i) => (
+        <div
+          class="campus-facility-card slide-in-up p-6 rounded-2xl transition-all duration-300"
+          style={`
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            border: 1px solid ${facility.color}30;
+            animation-delay: ${i * 0.1}s;
+          `}
+        >
+          <div class="text-3xl mb-3">{facility.icon}</div>
+          <h3 class="font-gothic text-lg mb-2" style={`color: ${facility.color}`}>{facility.title}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">{facility.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // スライドインアニメーション（IntersectionObserver）
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.slide-in-left, .slide-in-right, .slide-in-up').forEach(el => {
+    observer.observe(el);
+  });
+
+  // 施設カードのスクロール入場
+  gsap.utils.toArray('.campus-facility-card').forEach((card: any, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: 'top 88%' },
+      duration: 0.5,
+      y: 40,
+      opacity: 0,
+      delay: i * 0.08,
+      ease: 'power2.out',
+    });
+  });
+
+  // キャンパススポットのホバー
+  document.querySelectorAll('.campus-spot').forEach(spot => {
+    spot.addEventListener('click', function(this: HTMLElement) {
+      gsap.to(this, {
+        duration: 0.15,
+        scale: 1.3,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power2.out',
+      });
+    });
+  });
+</script>

@@ -1,0 +1,158 @@
+---
+// 入試・応募セクション
+---
+
+<section id="admission" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a0a1a 0%, #1a0030 100%);">
+  <div class="section-container">
+    <h2 class="section-title">📝 入試・応募</h2>
+
+    <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+      神山まるごと高専への入学方法を紹介するめぽ！
+    </p>
+
+    <!-- 入試情報カード -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+      <!-- 入試種別 -->
+      <div class="slide-in-left p-8 rounded-2xl" style="border: 2px solid #FF69B440; background: rgba(255,105,180,0.05);">
+        <h3 class="font-gothic text-2xl mb-6" style="color: #FF69B4;">🎯 入試種別</h3>
+        <div class="space-y-4">
+          {[
+            { name: '一般入試', desc: '筆記試験・面接・書類審査', color: '#FF69B4' },
+            { name: '推薦入試', desc: '中学校長推薦＋面接・作文', color: '#00FFFF' },
+            { name: 'AO入試', desc: 'ポートフォリオ＋面接・プレゼン', color: '#39FF14' },
+            { name: '帰国子女・留学生枠', desc: '英語面接・書類審査', color: '#BF5FFF' },
+          ].map(type => (
+            <div class="flex items-start gap-3 p-3 rounded-xl" style={`background: ${type.color}10; border: 1px solid ${type.color}30;`}>
+              <span class="text-lg" style={`color: ${type.color}`}>◆</span>
+              <div>
+                <div class="font-gothic font-bold text-white">{type.name}</div>
+                <div class="text-gray-400 text-sm">{type.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- スケジュール -->
+      <div class="slide-in-right p-8 rounded-2xl" style="border: 2px solid #00FFFF40; background: rgba(0,255,255,0.03);">
+        <h3 class="font-gothic text-2xl mb-6" style="color: #00FFFF;">📅 スケジュール（目安）</h3>
+        <div class="space-y-4 relative">
+          <!-- タイムライン線 -->
+          <div class="absolute left-3 top-4 bottom-4 w-0.5" style="background: linear-gradient(180deg, #00FFFF, #BF5FFF);"></div>
+          {[
+            { month: '6月〜', event: '学校説明会・オープンキャンパス', color: '#00FFFF' },
+            { month: '9月〜', event: '出願受付開始', color: '#39FF14' },
+            { month: '11月', event: 'AO・推薦入試', color: '#FFF01F' },
+            { month: '1月〜', event: '一般入試', color: '#FF69B4' },
+            { month: '3月', event: '合格発表・手続き', color: '#BF5FFF' },
+            { month: '4月', event: '入学式 🎉', color: '#FF69B4' },
+          ].map(item => (
+            <div class="flex items-center gap-4 pl-8">
+              <div class="w-3 h-3 rounded-full flex-shrink-0 -ml-5" style={`background: ${item.color}`}></div>
+              <div>
+                <span class="font-gothic font-bold text-sm mr-2" style={`color: ${item.color}`}>{item.month}</span>
+                <span class="text-gray-300 text-sm">{item.event}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 奨学金情報 -->
+    <div class="p-8 rounded-2xl mb-12 slide-in-up" style="border: 2px solid #39FF1440; background: rgba(57,255,20,0.05);">
+      <h3 class="font-gothic text-2xl mb-4" style="color: #39FF14;">💰 給付型奨学金</h3>
+      <p class="text-gray-300 mb-4 leading-relaxed">
+        経済的な事情に関わらず学べるよう、充実した給付型奨学金制度があるめぽ。
+        入学試験の成績・経済状況に応じて支給されるめぽ。詳細は公式サイトで確認してめぽ！
+      </p>
+      <div class="flex flex-wrap gap-3">
+        {['授業料免除', '生活費支援', '住居費支援', '渡航費支援'].map(item => (
+          <span class="px-4 py-2 rounded-full font-gothic text-sm font-bold"
+                style="background: rgba(57,255,20,0.15); border: 1px solid #39FF14; color: #39FF14;">
+            ✓ {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- 裏技ボタン -->
+    <div class="text-center">
+      <button id="reveal-tips-btn" class="btn-neon text-lg">
+        💡 クリックして受験のコツを見るめぽ！
+      </button>
+    </div>
+
+    <!-- 隠しメッセージ（受験のコツ） -->
+    <div id="admission-tips" class="mt-8 p-8 rounded-2xl hidden"
+         style="border: 2px solid #FFF01F; background: rgba(255,240,31,0.08);">
+      <h3 class="font-gothic text-2xl mb-6 text-center" style="color: #FFF01F;">🔓 受験のコツ（内緒だよめぽ）</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          { tip: '「なぜ神山まるごと高専？」の答えを自分の言葉で準備しよう', icon: '🎯' },
+          { tip: 'ポートフォリオには「失敗した挑戦」も入れると好印象めぽ！', icon: '💼' },
+          { tip: 'オープンキャンパスに参加してリアルな雰囲気を感じようめぽ', icon: '🏫' },
+          { tip: 'テクノロジー・デザイン・ビジネスの3つに興味があることをアピールしようめぽ', icon: '🌟' },
+          { tip: '「やりたいこと」より「なぜやりたいか」を深く考えようめぽ', icon: '🤔' },
+          { tip: 'SNSで在校生・教員をフォローして情報収集も有効めぽ！', icon: '📱' },
+        ].map(item => (
+          <div class="flex items-start gap-3 p-3 rounded-xl" style="background: rgba(255,240,31,0.08); border: 1px solid rgba(255,240,31,0.2);">
+            <span class="text-xl">{item.icon}</span>
+            <p class="text-gray-300 text-sm">{item.tip}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 受験のコツ表示
+  const btn = document.getElementById('reveal-tips-btn')!;
+  const tips = document.getElementById('admission-tips')!;
+  let revealed = false;
+
+  btn.addEventListener('click', () => {
+    revealed = !revealed;
+    if (revealed) {
+      tips.classList.remove('hidden');
+      gsap.from(tips, {
+        duration: 0.5,
+        y: 30,
+        opacity: 0,
+        ease: 'power2.out',
+      });
+      btn.textContent = '🔒 隠すめぽ';
+    } else {
+      gsap.to(tips, {
+        duration: 0.3,
+        opacity: 0,
+        y: -20,
+        onComplete: () => {
+          tips.classList.add('hidden');
+          gsap.set(tips, { opacity: 1, y: 0 });
+        }
+      });
+      btn.textContent = '💡 クリックして受験のコツを見るめぽ！';
+    }
+  });
+
+  // スライドインアニメーション
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('#admission .slide-in-left, #admission .slide-in-right, #admission .slide-in-up').forEach(el => {
+    observer.observe(el);
+  });
+</script>

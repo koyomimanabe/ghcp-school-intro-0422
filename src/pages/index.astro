@@ -1,0 +1,73 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import CurriculumSection from '../components/sections/CurriculumSection.astro';
+import CampusSection from '../components/sections/CampusSection.astro';
+import AdmissionSection from '../components/sections/AdmissionSection.astro';
+import KamiyamaSection from '../components/sections/KamiyamaSection.astro';
+import StaffSection from '../components/sections/StaffSection.astro';
+import MiniGame from '../components/MiniGame.astro';
+---
+
+<Layout title="神山まるごと高専 — テクノロジー × デザイン × アントレプレナーシップ">
+  <!-- ヘッダー -->
+  <Header />
+
+  <!-- ヒーロー -->
+  <HeroSection />
+
+  <!-- セクション区切り -->
+  <hr class="neon-divider" />
+
+  <!-- 基本情報 -->
+  <AboutSection />
+
+  <hr class="neon-divider" />
+
+  <!-- カリキュラム -->
+  <CurriculumSection />
+
+  <hr class="neon-divider" />
+
+  <!-- キャンパス -->
+  <CampusSection />
+
+  <hr class="neon-divider" />
+
+  <!-- 入試情報 -->
+  <AdmissionSection />
+
+  <hr class="neon-divider" />
+
+  <!-- 神山町紹介 -->
+  <KamiyamaSection />
+
+  <hr class="neon-divider" />
+
+  <!-- スタッフ -->
+  <StaffSection />
+
+  <hr class="neon-divider" />
+
+  <!-- ミニゲーム -->
+  <MiniGame />
+
+  <!-- フッター -->
+  <Footer />
+
+  <!-- コナミコード・スクロールギミック -->
+  <script>
+    import '../scripts/konami.js';
+    import '../scripts/scrollGimmick.js';
+  </script>
+</Layout>
+
+<style>
+  /* ヘッダー分の上パディング */
+  main, section:first-of-type {
+    padding-top: 64px;
+  }
+</style>

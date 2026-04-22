@@ -1,0 +1,148 @@
+---
+// カリキュラムセクション
+---
+
+<section id="curriculum" class="py-20 px-6 relative" style="background: linear-gradient(180deg, #0a0a1a 0%, #0d0d2b 100%);">
+  <div class="section-container">
+    <h2 class="section-title">📚 カリキュラム</h2>
+
+    <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+      3本柱の教育で、未来を切り拓く力を育てるめぽ！
+    </p>
+
+    <!-- 3本柱 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {[
+        {
+          icon: '💻',
+          title: 'テクノロジー',
+          subtitle: 'Technology',
+          color: '#00FFFF',
+          items: ['プログラミング基礎〜応用', 'AI・機械学習', 'IoT・ハードウェア', 'クラウド・インフラ', 'セキュリティ'],
+          description: 'コードを書くだけじゃなく、テクノロジーで世界を変える力を身につけるめぽ',
+        },
+        {
+          icon: '🎨',
+          title: 'デザイン',
+          subtitle: 'Design',
+          color: '#FF69B4',
+          items: ['UI/UXデザイン', 'グラフィックデザイン', 'プロダクトデザイン', 'サービスデザイン', 'デザイン思考'],
+          description: '見た目だけじゃない、人の心を動かすデザインを学ぶめぽ',
+        },
+        {
+          icon: '🚀',
+          title: 'アントレプレナーシップ',
+          subtitle: 'Entrepreneurship',
+          color: '#39FF14',
+          items: ['スタートアップ基礎', 'ビジネスモデル思考', 'プロジェクトマネジメント', '地域課題解決', '海外フィールドワーク'],
+          description: '挑戦を恐れず、自分で道を切り拓く精神を育てるめぽ',
+        },
+      ].map((pillar, i) => (
+        <div class="accordion-item curriculum-card rounded-2xl overflow-hidden"
+             style={`border: 2px solid ${pillar.color}60; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);`}>
+
+          <!-- ヘッダー（クリックでアコーディオン） -->
+          <button
+            class="accordion-toggle w-full text-left p-6 flex items-center gap-4 hover:bg-white/5 transition-colors"
+            aria-expanded="false"
+          >
+            <span class="text-5xl curriculum-icon" style={`animation: float ${3 + i * 0.5}s ease-in-out infinite; animation-delay: ${i * 0.3}s; display:inline-block;`}>
+              {pillar.icon}
+            </span>
+            <div class="flex-1">
+              <h3 class="font-gothic text-2xl font-bold" style={`color: ${pillar.color}`}>
+                {pillar.title}
+              </h3>
+              <p class="text-gray-400 text-sm">{pillar.subtitle}</p>
+            </div>
+            <span class="accordion-arrow text-xl transition-transform duration-300" style={`color: ${pillar.color}`}>▼</span>
+          </button>
+
+          <!-- コンテンツ（アコーディオン） -->
+          <div class="accordion-content px-6 pb-6">
+            <p class="text-gray-300 mb-4 text-sm leading-relaxed">{pillar.description}</p>
+            <ul class="space-y-2">
+              {pillar.items.map(item => (
+                <li class="flex items-center gap-2 text-gray-300 text-sm">
+                  <span style={`color: ${pillar.color}`}>▶</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- 学習の特徴 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="slide-in-left p-6 rounded-2xl" style="border: 1px solid #BF5FFF40; background: rgba(191,95,255,0.05);">
+        <h3 class="font-gothic text-xl mb-4" style="color: #BF5FFF;">🏗️ プロジェクト型学習（PBL）</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          1年目から実際のプロジェクトに参加。地域の課題を解決するプロダクトを開発しながら、テクノロジー・デザイン・ビジネスを同時に学ぶめぽ。
+        </p>
+      </div>
+      <div class="slide-in-right p-6 rounded-2xl" style="border: 1px solid #FFF01F40; background: rgba(255,240,31,0.05);">
+        <h3 class="font-gothic text-xl mb-4" style="color: #FFF01F;">🌏 フィールドワーク</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          神山町の企業・起業家との協働や、国内外のフィールドワークを通じて、リアルな課題に向き合う経験を積むめぽ。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // アコーディオンの実装
+  document.querySelectorAll('.accordion-toggle').forEach(btn => {
+    btn.addEventListener('click', function(this: HTMLElement) {
+      const item = this.closest('.accordion-item')!;
+      const content = item.querySelector('.accordion-content') as HTMLElement;
+      const arrow = this.querySelector('.accordion-arrow') as HTMLElement;
+      const isOpen = item.classList.contains('open');
+
+      // 全て閉じる
+      document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+        const a = i.querySelector('.accordion-arrow') as HTMLElement;
+        if (a) a.style.transform = 'rotate(0deg)';
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+        this.setAttribute('aria-expanded', 'true');
+      } else {
+        this.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // カードのスクロール入場アニメーション
+  gsap.utils.toArray('.curriculum-card').forEach((card: any, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: 'top 85%' },
+      duration: 0.7,
+      y: 60,
+      opacity: 0,
+      delay: i * 0.15,
+      ease: 'power3.out',
+    });
+  });
+
+  // スライドインアニメーション（IntersectionObserver）
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => observer.observe(el));
+</script>

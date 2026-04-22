@@ -1,0 +1,120 @@
+---
+// フッターコンポーネント
+---
+
+<footer class="relative pt-16 pb-8 px-6" style="background: linear-gradient(180deg, #0a0a1a 0%, #16213e 100%); border-top: 2px solid #FF69B4;">
+  <div class="max-w-1200 mx-auto text-center">
+    <!-- 絵文字の海 -->
+    <div class="text-4xl mb-6 leading-loose" id="footer-emojis">
+      🌸🎀⭐✨💫🌈🎮🏫🗻🌊🦋🎨🚀💡🤝🎯🌟💖🎉🎊
+    </div>
+
+    <!-- メインメッセージ -->
+    <h2 class="font-gothic text-2xl md:text-3xl mb-4" style="color: #FF69B4">
+      ここまで来たあなたはえらいめぽ！
+    </h2>
+
+    <p class="text-gray-400 mb-8 text-lg">
+      神山まるごと高専で、あなたの可能性を広げようめぽ ✨
+    </p>
+
+    <!-- 情報リンク -->
+    <div class="flex flex-wrap justify-center gap-6 mb-8">
+      <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer"
+         class="text-electric-blue hover:text-white transition-colors font-gothic">
+        🌐 公式サイト
+      </a>
+      <a href="https://twitter.com/kamiyamakosen" target="_blank" rel="noopener noreferrer"
+         class="text-electric-blue hover:text-white transition-colors font-gothic">
+        🐦 Twitter/X
+      </a>
+      <a href="https://www.instagram.com/kamiyamakosen" target="_blank" rel="noopener noreferrer"
+         class="text-electric-blue hover:text-white transition-colors font-gothic">
+        📸 Instagram
+      </a>
+    </div>
+
+    <!-- 秘密の絵文字（3回クリックで隠しメッセージ） -->
+    <div class="mb-8">
+      <span
+        id="secret-emoji"
+        class="text-3xl cursor-pointer select-none inline-block"
+        title="3回クリックしてみてめぽ..."
+      >🔮</span>
+      <span class="text-xs text-gray-600 ml-2">← ここをクリック...</span>
+    </div>
+
+    <!-- 区切り線 -->
+    <hr class="neon-divider" />
+
+    <!-- コピーライト -->
+    <div class="mt-6 space-y-2">
+      <p class="text-gray-500 text-sm font-gothic">
+        © 2024 神山まるごと高専
+      </p>
+      <p class="text-gray-600 text-xs">
+        このサイトはファンメイドのデモページめぽ。
+        公式情報は <a href="https://kamiyama.ac.jp" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline">公式サイト</a> をご確認くださいめぽ。
+      </p>
+      <p class="text-gray-700 text-xs mt-2">
+        🤖 GitHub Copilot と一緒に作ったよめぽ
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- 秘密モーダル -->
+<div id="footer-secret-modal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="text-5xl mb-4">🔮✨🔮</div>
+    <h3 class="font-gothic text-2xl mb-4" style="color: #BF5FFF;">発見しためぽ！！</h3>
+    <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+      神山まるごと高専の隠しメッセージめぽ：<br/><br/>
+      「<span style="color: #FF69B4">挑戦することを恐れるな</span>」<br/>
+      「<span style="color: #00FFFF">失敗は最高の教科書だ</span>」<br/>
+      「<span style="color: #39FF14">神山で、世界を変えよう</span>」
+    </p>
+    <p class="text-gray-500 text-sm mb-4">
+      コナミコード（↑↑↓↓←→←→BA）も試してみてめぽ！
+    </p>
+    <button id="close-footer-modal" class="btn-neon">
+      わかっためぽ！
+    </button>
+  </div>
+</div>
+
+<script>
+  // フッター絵文字のアニメーション
+  const footerEmojis = document.getElementById('footer-emojis')!;
+  const emojis = footerEmojis.textContent!.split('');
+  footerEmojis.innerHTML = emojis.map((e, i) =>
+    `<span style="display:inline-block; animation: float ${2 + Math.random() * 2}s ease-in-out infinite; animation-delay: ${i * 0.1}s">${e}</span>`
+  ).join('');
+
+  // 秘密の絵文字（3回クリック）
+  let clickCount = 0;
+  const secretEmoji = document.getElementById('secret-emoji')!;
+
+  secretEmoji.addEventListener('click', () => {
+    clickCount++;
+    secretEmoji.style.transform = `scale(${1 + clickCount * 0.3}) rotate(${clickCount * 30}deg)`;
+
+    if (clickCount >= 3) {
+      document.getElementById('footer-secret-modal')?.classList.add('active');
+      clickCount = 0;
+      secretEmoji.style.transform = '';
+    }
+  });
+
+  document.getElementById('close-footer-modal')?.addEventListener('click', () => {
+    document.getElementById('footer-secret-modal')?.classList.remove('active');
+  });
+
+  // モーダル外クリックで閉じる
+  document.getElementById('footer-secret-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+  document.getElementById('logo-secret-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+</script>

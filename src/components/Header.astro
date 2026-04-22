@@ -1,0 +1,144 @@
+---
+// ヘッダーコンポーネント - 虹色グラデーションナビゲーション
+---
+
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav class="flex items-center justify-between px-6 py-3" style="background: linear-gradient(90deg, #FF69B4, #BF5FFF, #00FFFF, #39FF14, #FFF01F); background-size: 300% 100%;">
+    <!-- ロゴ -->
+    <div
+      id="logo"
+      class="font-gothic text-xl font-bold text-gray-900 cursor-none select-none"
+      title="ロゴを長押しすると秘密が見えるめぽ"
+    >
+      🏫 神山まるごと高専
+    </div>
+
+    <!-- ナビリンク -->
+    <ul class="hidden md:flex gap-6 list-none m-0 p-0">
+      {[
+        { href: '#about', label: '高専について' },
+        { href: '#curriculum', label: 'カリキュラム' },
+        { href: '#campus', label: 'キャンパス' },
+        { href: '#admission', label: '入試情報' },
+        { href: '#kamiyama', label: '神山町' },
+        { href: '#staff', label: 'スタッフ' },
+        { href: '#minigame', label: '🎮ゲーム' },
+      ].map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="text-gray-900 font-bold text-sm no-underline px-3 py-2 rounded-full transition-all duration-200 hover:bg-white/30 hover:scale-110 inline-block font-gothic"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- モバイルハンバーガー -->
+    <button id="menu-btn" class="md:hidden text-gray-900 text-2xl bg-transparent border-none" aria-label="メニューを開く">
+      ☰
+    </button>
+  </nav>
+
+  <!-- モバイルメニュー -->
+  <div id="mobile-menu" class="hidden md:hidden" style="background: rgba(10,10,26,0.97); border-top: 2px solid #FF69B4;">
+    <ul class="flex flex-col gap-2 list-none p-4 m-0">
+      {[
+        { href: '#about', label: '高専について' },
+        { href: '#curriculum', label: 'カリキュラム' },
+        { href: '#campus', label: 'キャンパス' },
+        { href: '#admission', label: '入試情報' },
+        { href: '#kamiyama', label: '神山町' },
+        { href: '#staff', label: 'スタッフ' },
+        { href: '#minigame', label: '🎮ゲーム' },
+      ].map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="block text-white font-bold text-base no-underline px-4 py-3 rounded-lg hover:bg-pink-500/20 font-gothic"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<!-- ロゴ長押し時の秘密モーダル -->
+<div id="logo-secret-modal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="text-4xl mb-4">🔐</div>
+    <h3 class="font-gothic text-2xl mb-4" style="color: #FF69B4">開発者メッセージ</h3>
+    <p class="text-gray-300 mb-4">
+      このサイトはGitHub Copilotと一緒に作られためぽ！<br/>
+      AIと人間のコラボ作品だよめぽ✨
+    </p>
+    <p class="text-sm text-gray-500 mb-4">作成日: 2026年4月22日</p>
+    <button onclick="document.getElementById('logo-secret-modal').classList.remove('active')" class="btn-neon">
+      閉じるめぽ
+    </button>
+  </div>
+</div>
+
+<script>
+  // スクロールでヘッダー背景を変更
+  const header = document.getElementById('main-header')!;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      header.style.backdropFilter = 'blur(10px)';
+    } else {
+      header.style.backdropFilter = 'none';
+    }
+  });
+
+  // モバイルメニュー
+  const menuBtn = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // スムーズスクロール（モバイルメニューを閉じる）
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+  });
+
+  // ロゴ長押し
+  const logo = document.getElementById('logo')!;
+  let pressTimer: ReturnType<typeof setTimeout>;
+
+  logo?.addEventListener('mousedown', () => {
+    pressTimer = setTimeout(() => {
+      document.getElementById('logo-secret-modal')?.classList.add('active');
+    }, 1500);
+  });
+
+  logo?.addEventListener('mouseup', () => clearTimeout(pressTimer));
+  logo?.addEventListener('mouseleave', () => clearTimeout(pressTimer));
+
+  // ナビリンクのバウンスエフェクト
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('mouseenter', function(this: HTMLElement) {
+      this.style.animation = 'none';
+      this.offsetHeight; // リフロー強制
+      this.style.animation = '';
+    });
+  });
+</script>
+
+<style>
+  nav {
+    animation: gradient-shift 5s ease infinite;
+    background-size: 300% 100%;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>

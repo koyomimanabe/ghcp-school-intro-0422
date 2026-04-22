@@ -1,0 +1,146 @@
+---
+// 神山町紹介セクション
+---
+
+<section id="kamiyama" class="py-20 px-6 relative overflow-hidden" style="background: linear-gradient(180deg, #1a0030 0%, #0a1a0a 100%);">
+
+  <!-- 背景デコLeaf -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-10">
+    {['🌿', '🍃', '🌾', '🌱', '🌲'].map((leaf, i) => (
+      <span class="absolute text-6xl" style={`
+        left: ${(i * 22) % 95}%;
+        top: ${(i * 17) % 90}%;
+        transform: rotate(${i * 45}deg);
+      `}>{leaf}</span>
+    ))}
+  </div>
+
+  <div class="section-container relative z-10">
+    <h2 class="section-title">🏔️ 神山町</h2>
+
+    <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
+      神山まるごと高専の舞台、徳島県神山町を紹介するめぽ！
+    </p>
+
+    <!-- MAP風レイアウト -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
+
+      <!-- 神山町MAP風イラスト -->
+      <div class="slide-in-left">
+        <div class="relative rounded-3xl overflow-hidden p-6"
+             style="background: linear-gradient(135deg, #0d2b1a, #1a3d1a); border: 3px solid #39FF14; min-height: 350px;">
+
+          <div class="font-gothic text-center mb-4 text-sm" style="color: #39FF14;">🗺️ 神山町MAG（can MAP）</div>
+
+          <!-- MAP要素 -->
+          <div class="relative" style="height: 270px;">
+            <!-- 川 -->
+            <div class="absolute" style="
+              bottom: 40px; left: 10%; right: 10%;
+              height: 20px;
+              background: linear-gradient(90deg, #00FFFF40, #00FFFF80, #00FFFF40);
+              border-radius: 10px;
+              box-shadow: 0 0 15px #00FFFF;
+            ">
+              <span class="absolute top-0 left-1/2 -translate-x-1/2 text-xs" style="color: #00FFFF;">鮎喰川 💧</span>
+            </div>
+
+            <!-- 山々 -->
+            {[
+              { left: '5%', size: '70px', color: '#2d5a2d', label: '' },
+              { left: '15%', size: '100px', color: '#1e4a1e', label: '🏔️' },
+              { left: '30%', size: '80px', color: '#2a5a2a', label: '' },
+              { left: '55%', size: '90px', color: '#1a4a1a', label: '🏔️' },
+              { left: '70%', size: '75px', color: '#2d5a2d', label: '' },
+              { left: '82%', size: '85px', color: '#1e4a1e', label: '' },
+            ].map(mt => (
+              <div class="absolute bottom-16"
+                   style={`
+                     left: ${mt.left};
+                     width: 0;
+                     height: 0;
+                     border-left: calc(${mt.size} / 2) solid transparent;
+                     border-right: calc(${mt.size} / 2) solid transparent;
+                     border-bottom: ${mt.size} solid ${mt.color};
+                   `}>
+                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm">{mt.label}</span>
+              </div>
+            ))}
+
+            <!-- スポット -->
+            {[
+              { top: '30%', left: '40%', icon: '🏫', label: '神山まるごと高専', color: '#FF69B4' },
+              { top: '20%', left: '60%', icon: '🏡', label: 'サテライトオフィス群', color: '#00FFFF' },
+              { top: '45%', left: '25%', icon: '⛩️', label: '神社', color: '#FFF01F' },
+              { top: '15%', left: '20%', icon: '♨️', label: '温泉', color: '#BF5FFF' },
+            ].map(spot => (
+              <div class="absolute text-center" style={`top: ${spot.top}; left: ${spot.left}; transform: translate(-50%, -50%);`}>
+                <div class="text-2xl float-animation" style={`animation-delay: ${Math.random()}s;`}>{spot.icon}</div>
+                <div class="text-xs mt-1 whitespace-nowrap font-gothic" style={`color: ${spot.color}; text-shadow: 0 0 5px ${spot.color};`}>{spot.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- 説明テキスト -->
+      <div class="slide-in-right space-y-6">
+        <div class="p-6 rounded-2xl" style="border: 1px solid #39FF1440; background: rgba(57,255,20,0.05);">
+          <h3 class="font-gothic text-xl mb-3" style="color: #39FF14;">🌱 クリエイティブな田舎</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            神山町は人口約5000人の小さな山あいの町めぽ。
+            しかしIT企業・クリエイターのサテライトオフィスが30以上集まる、
+            日本有数のクリエイティブな場所になっているめぽ。
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl" style="border: 1px solid #00FFFF40; background: rgba(0,255,255,0.03);">
+          <h3 class="font-gothic text-xl mb-3" style="color: #00FFFF;">🏢 サテライトオフィスの聖地</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            サイボウズ・Sansan・モノサスなど名だたる企業がオフィスを置く町めぽ。
+            高専生も実際にプロと一緒に働く機会があるめぽ！
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl" style="border: 1px solid #BF5FFF40; background: rgba(191,95,255,0.05);">
+          <h3 class="font-gothic text-xl mb-3" style="color: #BF5FFF;">🎨 アート・文化</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            アーティスト・イン・レジデンスも活発で、世界中のアーティストが神山町に滞在するめぽ。
+            文化とテクノロジーが交差する不思議な空間めぽ✨
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 神山町データ -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {[
+        { num: '5,000', unit: '人', label: '人口', color: '#FF69B4' },
+        { num: '30+', unit: '社', label: 'サテライトオフィス', color: '#00FFFF' },
+        { num: '海抜', unit: '300m', label: '豊かな自然環境', color: '#39FF14' },
+        { num: '1,200', unit: '年', label: '歴史ある神社', color: '#BF5FFF' },
+      ].map((data, i) => (
+        <div class="text-center p-4 rounded-2xl slide-in-up"
+             style={`border: 1px solid ${data.color}40; background: ${data.color}08;`}>
+          <div class="font-gothic text-2xl font-bold" style={`color: ${data.color}`}>{data.num}</div>
+          <div class="text-gray-400 text-xs">{data.unit}</div>
+          <div class="text-gray-500 text-xs mt-1">{data.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('#kamiyama .slide-in-left, #kamiyama .slide-in-right, #kamiyama .slide-in-up').forEach(el => {
+    observer.observe(el);
+  });
+</script>

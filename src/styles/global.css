@@ -1,0 +1,330 @@
+/* =============================================
+   グローバルCSS - 神山まるごと高専紹介ページ
+   原宿系ビビッドデザイン
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=DotGothic16&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* カスタムプロパティ */
+:root {
+  --hot-pink: #FF69B4;
+  --electric-blue: #00FFFF;
+  --lime-green: #39FF14;
+  --neon-yellow: #FFF01F;
+  --vivid-purple: #BF5FFF;
+  --dark-bg: #0a0a1a;
+  --cursor-size: 20px;
+}
+
+/* カスタムカーソル */
+*, *::before, *::after {
+  cursor: none !important;
+  box-sizing: border-box;
+}
+
+/* ベーススタイル */
+html {
+  scroll-behavior: smooth;
+  background: var(--dark-bg);
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--dark-bg);
+  color: #fff;
+  overflow-x: hidden;
+  /* ドット柄背景（原宿風） */
+  background-image: radial-gradient(circle, rgba(255, 105, 180, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* スクロールバースタイル */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--hot-pink), var(--vivid-purple));
+  border-radius: 4px;
+}
+
+/* ネオングロウテキスト */
+.neon-text-pink {
+  text-shadow: 0 0 7px #FF69B4, 0 0 10px #FF69B4, 0 0 21px #FF69B4, 0 0 42px #FF69B4;
+}
+
+.neon-text-blue {
+  text-shadow: 0 0 7px #00FFFF, 0 0 10px #00FFFF, 0 0 21px #00FFFF, 0 0 42px #00FFFF;
+}
+
+.neon-text-green {
+  text-shadow: 0 0 7px #39FF14, 0 0 10px #39FF14, 0 0 21px #39FF14, 0 0 42px #39FF14;
+}
+
+.neon-text-yellow {
+  text-shadow: 0 0 7px #FFF01F, 0 0 10px #FFF01F, 0 0 21px #FFF01F, 0 0 42px #FFF01F;
+}
+
+.neon-text-purple {
+  text-shadow: 0 0 7px #BF5FFF, 0 0 10px #BF5FFF, 0 0 21px #BF5FFF, 0 0 42px #BF5FFF;
+}
+
+/* グリッチアニメーション */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
+  20% { clip-path: inset(30% 0 50% 0); transform: translate(3px, 0); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+  80% { clip-path: inset(10% 0 80% 0); transform: translate(-3px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(50% 0 30% 0); transform: translate(3px, 0); }
+  20% { clip-path: inset(80% 0 5% 0); transform: translate(-3px, 0); }
+  40% { clip-path: inset(10% 0 70% 0); transform: translate(2px, 0); }
+  60% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 0); }
+  80% { clip-path: inset(70% 0 10% 0); transform: translate(3px, 0); }
+}
+
+.glitch-container {
+  position: relative;
+}
+
+.glitch-container::before,
+.glitch-container::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-container::before {
+  color: var(--electric-blue);
+  animation: glitch-1 0.5s infinite linear alternate-reverse;
+  z-index: -1;
+}
+
+.glitch-container::after {
+  color: var(--hot-pink);
+  animation: glitch-2 0.5s infinite linear alternate-reverse;
+  z-index: -2;
+}
+
+/* フローティングアニメーション */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(5deg); }
+  66% { transform: translateY(-8px) rotate(-5deg); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* 流れ星 */
+@keyframes shooting-star {
+  0% { transform: translateX(-200px) translateY(-200px); opacity: 1; }
+  100% { transform: translateX(200vw) translateY(200vh); opacity: 0; }
+}
+
+/* 虹色テキスト（コナミコード発動時） */
+.rainbow-mode * {
+  animation: rainbow-color 1s linear infinite !important;
+}
+
+@keyframes rainbow-color {
+  0% { color: #FF69B4; }
+  20% { color: #00FFFF; }
+  40% { color: #39FF14; }
+  60% { color: #FFF01F; }
+  80% { color: #BF5FFF; }
+  100% { color: #FF69B4; }
+}
+
+/* カードホバーエフェクト */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* カードフリップ */
+.card-flip-container {
+  perspective: 1000px;
+}
+
+.card-flip {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.card-flip:hover {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* スライドインアニメーション（IntersectionObserver用） */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.visible,
+.slide-in-right.visible,
+.slide-in-up.visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* アコーディオン */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 500px;
+}
+
+/* ボタンスタイル */
+.btn-neon {
+  position: relative;
+  display: inline-block;
+  padding: 12px 30px;
+  border: 2px solid var(--hot-pink);
+  color: var(--hot-pink);
+  font-family: 'DotGothic16', monospace;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: transparent;
+  cursor: none;
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-neon:hover {
+  background: var(--hot-pink);
+  color: var(--dark-bg);
+  box-shadow: 0 0 20px var(--hot-pink), 0 0 40px var(--hot-pink);
+}
+
+.btn-neon:hover::before {
+  left: 100%;
+}
+
+/* セクション共通スタイル */
+.section-container {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: 'DotGothic16', monospace;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 60px;
+  background: linear-gradient(90deg, var(--hot-pink), var(--electric-blue), var(--lime-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 区切り線 */
+.neon-divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hot-pink), var(--electric-blue), var(--lime-green), transparent);
+  margin: 40px 0;
+}
+
+/* パーティクルコンテナ */
+#particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* モーダル */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 2px solid var(--hot-pink);
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 40px var(--hot-pink);
+  text-align: center;
+}

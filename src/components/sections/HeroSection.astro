@@ -1,0 +1,170 @@
+---
+// ヒーローセクション
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style="background: radial-gradient(ellipse at center, #1a0030 0%, #0a0a1a 70%);">
+
+  <!-- 流れ星 -->
+  <div id="shooting-stars" class="absolute inset-0 pointer-events-none overflow-hidden">
+  </div>
+
+  <!-- 浮遊する絵文字デコレーション -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    {['⭐', '🌸', '💫', '🎀', '✨', '🌟', '💖', '🎊', '🦋', '🌈'].map((emoji, i) => (
+      <span
+        class="absolute text-2xl md:text-4xl select-none float-animation"
+        style={`
+          left: ${5 + (i * 9.5) % 90}%;
+          top: ${10 + (i * 13) % 80}%;
+          animation-delay: ${i * 0.4}s;
+          animation-duration: ${3 + (i % 3)}s;
+          opacity: 0.6;
+        `}
+      >{emoji}</span>
+    ))}
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="relative z-10 text-center px-6">
+
+    <!-- グリッチタイトル -->
+    <div id="hero-title" class="mb-6">
+      <h1
+        class="glitch-container font-gothic text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-2"
+        data-text="神山まるごと高専"
+        style="color: #FF69B4;"
+      >
+        神山まるごと高専
+      </h1>
+      <div class="font-gothic text-lg sm:text-xl md:text-2xl" style="color: #00FFFF;">
+        KAMIYAMA MARUGOTO KOSEN
+      </div>
+    </div>
+
+    <!-- タイプライター効果のキャッチコピー -->
+    <div class="mb-10 h-16 flex items-center justify-center">
+      <p
+        id="typewriter-text"
+        class="font-gothic text-lg sm:text-xl md:text-2xl"
+        style="color: #FFF01F; min-height: 2rem;"
+      ></p>
+    </div>
+
+    <!-- CTAボタン -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#about" class="btn-neon">
+        🚀 冒険スタート↓
+      </a>
+      <a href="#minigame" class="btn-neon" style="border-color: #00FFFF; color: #00FFFF;">
+        🎮 ゲームで遊ぶ
+      </a>
+    </div>
+
+    <!-- スクロールインジケーター -->
+    <div class="mt-16 flex flex-col items-center gap-2 animate-bounce">
+      <span class="text-gray-400 text-sm font-gothic">スクロールしてね</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 4L12 20M12 20L6 14M12 20L18 14" stroke="#FF69B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { TextPlugin } from 'gsap/TextPlugin';
+
+  gsap.registerPlugin(TextPlugin);
+
+  // タイプライター効果
+  const phrases = [
+    'テクノロジーで世界を変えよう',
+    'デザインで未来を描こう',
+    'アントレプレナーシップで挑戦しよう',
+    '神山町から、世界へ',
+    '「まるごと」学ぶ、新しい高専',
+  ];
+
+  let currentIndex = 0;
+  const target = document.getElementById('typewriter-text')!;
+
+  async function typePhrase() {
+    const phrase = phrases[currentIndex];
+
+    gsap.to(target, {
+      duration: phrase.length * 0.06,
+      text: phrase,
+      ease: 'none',
+      onComplete: () => {
+        setTimeout(() => {
+          gsap.to(target, {
+            duration: 0.5,
+            opacity: 0,
+            onComplete: () => {
+              target.textContent = '';
+              gsap.to(target, { duration: 0.3, opacity: 1, onComplete: () => {
+                currentIndex = (currentIndex + 1) % phrases.length;
+                typePhrase();
+              }});
+            }
+          });
+        }, 2000);
+      }
+    });
+  }
+
+  typePhrase();
+
+  // ヒーロータイトルのGSAPアニメーション
+  gsap.from('#hero-title', {
+    duration: 1.2,
+    y: -80,
+    opacity: 0,
+    ease: 'bounce.out',
+    delay: 0.3,
+  });
+
+  // 流れ星の生成
+  function createShootingStar() {
+    const container = document.getElementById('shooting-stars')!;
+    const star = document.createElement('div');
+    const startX = Math.random() * 100;
+    const startY = Math.random() * 50;
+
+    star.style.cssText = `
+      position: absolute;
+      left: ${startX}%;
+      top: ${startY}%;
+      width: 2px;
+      height: ${20 + Math.random() * 60}px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent);
+      border-radius: 2px;
+      transform: rotate(${30 + Math.random() * 30}deg);
+    `;
+    container.appendChild(star);
+
+    gsap.to(star, {
+      duration: 0.8 + Math.random() * 0.5,
+      x: 300,
+      y: 300,
+      opacity: 0,
+      ease: 'power2.in',
+      onComplete: () => star.remove(),
+    });
+  }
+
+  setInterval(createShootingStar, 800);
+
+  // グリッチタイトルのGSAPアニメーション
+  const glitchEl = document.querySelector('.glitch-container') as HTMLElement;
+  if (glitchEl) {
+    gsap.to(glitchEl, {
+      duration: 0.1,
+      skewX: 10,
+      repeat: -1,
+      yoyo: true,
+      repeatDelay: 3,
+      ease: 'power2.inOut',
+    });
+  }
+</script>

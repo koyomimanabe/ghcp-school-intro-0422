@@ -1,0 +1,170 @@
+---
+// 基本情報セクション
+---
+
+<section id="about" class="py-20 px-6 relative overflow-hidden">
+  <div class="section-container">
+    <h2 class="section-title slide-in-up">
+      🏫 高専について
+    </h2>
+
+    <p class="text-center text-gray-300 text-lg mb-12 max-w-2xl mx-auto slide-in-up">
+      神山まるごと高専は、日本初の「テクノロジー × デザイン × アントレプレナーシップ」に特化した5年制の私立高等専門学校めぽ。
+    </p>
+
+    <!-- 基本情報カード -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {[
+        {
+          icon: '📅',
+          title: '設立年',
+          content: '2023年4月',
+          detail: '日本初のこの教育スタイルで開校しためぽ！',
+          color: '#FF69B4',
+          secret: '実は試行錯誤の連続だったんだって。めぽ。',
+        },
+        {
+          icon: '📍',
+          title: '所在地',
+          content: '徳島県名西郡神山町',
+          detail: 'サテライトオフィスが集まるクリエイティブな町めぽ',
+          color: '#00FFFF',
+          secret: '神山町は日本のシリコンバレーと呼ばれることもあるめぽ！',
+        },
+        {
+          icon: '👩‍🎓',
+          title: '修業年限',
+          content: '5年制',
+          detail: '高校相当の教育を専門性と組み合わせて学ぶめぽ',
+          color: '#39FF14',
+          secret: '卒業後は就職も進学もできるよめぽ！',
+        },
+        {
+          icon: '💰',
+          title: '学費',
+          content: '給付型奨学金あり',
+          detail: '家庭の事情に関わらず学べるよう支援制度が充実めぽ',
+          color: '#FFF01F',
+          secret: 'お金の心配より夢を追いかけてめぽ！',
+        },
+        {
+          icon: '🔢',
+          title: '定員',
+          content: '1学年 約40名',
+          detail: '少人数で濃密な教育環境を実現しためぽ',
+          color: '#BF5FFF',
+          secret: '40人全員が本気の仲間になるめぽ！',
+        },
+        {
+          icon: '🌐',
+          title: '教育スタイル',
+          content: 'プロジェクト型学習',
+          detail: '実際の課題に取り組みながら学ぶ「まるごと」教育めぽ',
+          color: '#FF69B4',
+          secret: '教室でじっとしているだけじゃないよめぽ！世界が教室だめぽ！',
+        },
+      ].map((card, i) => (
+        <div
+          class="about-card card-hover relative p-6 rounded-2xl cursor-pointer overflow-hidden"
+          style={`
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid ${card.color}40;
+            animation-delay: ${i * 0.1}s;
+          `}
+          data-secret={card.secret}
+        >
+          <!-- 表示コンテンツ -->
+          <div class="relative z-10">
+            <div class="text-4xl mb-3">{card.icon}</div>
+            <h3 class="font-gothic text-lg mb-2" style={`color: ${card.color}`}>{card.title}</h3>
+            <p class="text-white font-bold text-xl mb-2">{card.content}</p>
+            <p class="text-gray-400 text-sm">{card.detail}</p>
+          </div>
+
+          <!-- ホバーグロウエフェクト -->
+          <div class="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none"
+               style={`background: radial-gradient(circle at 50% 50%, ${card.color}20, transparent 70%);`}
+               aria-hidden="true"></div>
+
+          <!-- クリックで出た秘密テキスト -->
+          <div class="secret-text absolute inset-0 rounded-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+               style={`background: ${card.color}ee;`}>
+            <p class="text-black font-gothic font-bold text-center text-sm">💡 {card.secret}</p>
+          </div>
+
+          <!-- クリックヒント -->
+          <div class="absolute bottom-2 right-3 text-xs opacity-40" style={`color: ${card.color}`}>
+            クリック！
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- キャッチフレーズ -->
+    <div class="text-center mt-16">
+      <blockquote class="font-gothic text-2xl md:text-3xl max-w-3xl mx-auto"
+                  style="color: #FFF01F; text-shadow: 0 0 20px #FFF01F;">
+        "学校ごと、神山町ごと、まるごと使って学ぶ"
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // カードのスクロール連動アニメーション
+  gsap.utils.toArray('.about-card').forEach((card: any, i) => {
+    gsap.from(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 85%',
+      },
+      duration: 0.6,
+      y: 50,
+      opacity: 0,
+      delay: i * 0.1,
+      ease: 'power2.out',
+    });
+  });
+
+  // カードクリックで秘密テキスト表示
+  document.querySelectorAll('.about-card').forEach(card => {
+    card.addEventListener('click', function(this: HTMLElement) {
+      const secretEl = this.querySelector<HTMLElement>('.secret-text');
+      if (secretEl) {
+        const isVisible = secretEl.style.opacity === '1';
+        secretEl.style.opacity = isVisible ? '0' : '1';
+        secretEl.style.pointerEvents = isVisible ? 'none' : 'all';
+      }
+    });
+
+    // ホバーでグロウ
+    card.addEventListener('mouseenter', function(this: HTMLElement) {
+      const glow = this.querySelector<HTMLElement>('.absolute.inset-0.rounded-2xl');
+      if (glow) glow.style.opacity = '1';
+    });
+
+    card.addEventListener('mouseleave', function(this: HTMLElement) {
+      const glow = this.querySelector<HTMLElement>('.absolute.inset-0.rounded-2xl');
+      if (glow) glow.style.opacity = '0';
+    });
+  });
+
+  // セクションタイトルのスライドイン
+  document.querySelectorAll('.slide-in-up').forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 90%',
+      },
+      duration: 0.8,
+      y: 40,
+      opacity: 0,
+      ease: 'power2.out',
+    });
+  });
+</script>
