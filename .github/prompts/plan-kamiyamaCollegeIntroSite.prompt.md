@@ -5,7 +5,7 @@ GitHub Pages で公開する神山まるごと高専の非公式紹介ページ�
 ## Steps
 
 ### Phase 1: 足場作り（基盤セットアップ）
-1. リポジトリ直下に Astro プロジェクトを初期化（`npm create astro@latest` を最小テンプレで実行）。既存 README.md は残す。
+1. リポジトリ直下に Astro プロジェクトを初期化（`npm create astro@latest` を最小テンプレで実行）。既存 README.md は Astro 初期化時に上書きせず、本プロジェクトの案内内容を維持したうえで起動手順等を追記する形で更新する。
 2. Tailwind 統合（`npx astro add tailwind`）。`tailwind.config.mjs` にデコラ系のカスタムカラーパレット（ホットピンク/ミント/レモン/ラベンダー/電気ブルー/黒）と`comic`フォント、`wiggle`/`bounce-slow`/`spin-slow`/`rainbow`等のkeyframes animationを定義。
 3. GSAP を依存追加（`npm i gsap`）。`src/lib/gsap.ts` に ScrollTrigger 登録の共通初期化。
 4. `astro.config.mjs` に `site` と `base` を設定（`https://koyomimanabe.github.io/ghcp-school-intro-0422`、base は `/ghcp-school-intro-0422/`）。
@@ -32,7 +32,7 @@ GitHub Pages で公開する神山まるごと高専の非公式紹介ページ�
 ### Phase 4: 冒険要素・小ネタ・イースターエッグ
 17. カーソル追従キャラ: `src/components/CursorPet.astro` + クライアントスクリプト。マスコット絵文字が遅延追従、クリックで吹き出しコメント。
 18. クリック増殖ステッカー: 空白クリックで絵文字が飛び散る（キャップ50個で古いものから消す）。
-19. BGM/SE トグル: `public/audio/` に自作風チップチューン（※音声素材は用意せず、Web Audio API で矩形波合成し `src/lib/audio.ts` でワンショット再生）。初期OFF、localStorage保存。
+19. BGM/SE トグル: 音声素材ファイルは一切用意せず、Web Audio API による矩形波合成のみで SE/BGM を生成する（`src/lib/audio.ts` でワンショット再生）。初期OFF、localStorage保存。`public/audio/` ディレクトリも作成しない。
 20. ダークモード（派手→さらに派手）: ネオン発光強化・背景極彩色・スクロール速度アップ等。`prefers-reduced-motion` 尊重。
 21. コナミコマンド: 入力で `/secret` 隠しページ出現（`src/pages/secret.astro`：歴代開発ログ風のジョークページ＋感謝のメッセージ）。
 22. おみくじ: フッター付近のボタンで今日の運勢（学び運/寮メシ運/コード運）をランダム生成、日替わりでseed固定。
