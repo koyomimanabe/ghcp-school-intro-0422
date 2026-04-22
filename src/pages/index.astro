@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HiddenEmoji from '../components/HiddenEmoji.astro';
+import Sticker from '../components/Sticker.astro';
+import Gacha from '../components/Gacha.astro';
+---
+<BaseLayout title="ようこそ冒険者！ | 神山まるごと高専 冒険サイト">
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-16 md:py-28">
+    <div class="absolute inset-0 -z-10 opacity-60" style="background: repeating-linear-gradient(45deg, #ff3ea522 0 24px, transparent 24px 48px);"></div>
+    <div class="max-w-5xl mx-auto px-4 text-center relative">
+      <Sticker emoji="💖" className="absolute -top-4 left-4 text-5xl animate-spin-slow" />
+      <Sticker emoji="⭐" className="absolute top-10 right-4 text-4xl animate-bounce-slow" />
+      <Sticker emoji="🎀" className="absolute bottom-0 left-10 text-4xl animate-wiggle" />
+      <p class="font-pop text-xl md:text-2xl text-deco-pink">非公式★ファンサイト</p>
+      <h1 id="hero-title" class="font-pop text-5xl md:text-8xl leading-none mt-2 neon text-rainbow inline-block">ようこそ冒険者！</h1>
+      <p class="mt-6 text-lg md:text-xl font-bold">徳島県神山町にある「神山まるごと高専」を、<br class="hidden md:block" />派手に、遊びに、冒険するように紹介するサイト。</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={`${import.meta.env.BASE_URL}curriculum`} class="btn-pop bg-deco-lemon text-deco-ink text-lg">📚 学びを覗く</a>
+        <a href={`${import.meta.env.BASE_URL}adventure`} class="btn-pop bg-deco-pink text-white text-lg animate-wiggle">🎮 冒険を始める</a>
+      </div>
+      <div class="mt-10 inline-block">
+        <HiddenEmoji id="home" emoji="🫧" hint="トップに隠れた絵文字！" />
+      </div>
+    </div>
+  </section>
+
+  <div class="zigzag-divider"></div>
+
+  <!-- Overview cards -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="font-pop text-4xl md:text-5xl text-center mb-10"><span class="text-rainbow">学校概要</span></h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <article class="card comic-frame p-6 bg-deco-lemon -rotate-2">
+        <div class="text-5xl mb-2">📍</div>
+        <h3 class="font-pop text-2xl">場所</h3>
+        <p class="mt-2 font-bold">徳島県名西郡 神山町</p>
+        <p class="text-sm mt-1 opacity-80">山の上の学園キャンパス。スダチと光の町。</p>
+      </article>
+      <article class="card comic-frame p-6 bg-deco-mint rotate-1">
+        <div class="text-5xl mb-2">💡</div>
+        <h3 class="font-pop text-2xl">理念</h3>
+        <p class="mt-2 font-bold">テック × デザイン × 起業家精神</p>
+        <p class="text-sm mt-1 opacity-80">ものづくりで社会を面白くする人を育てる学校。</p>
+      </article>
+      <article class="card comic-frame p-6 bg-deco-lavender -rotate-1">
+        <div class="text-5xl mb-2">🎉</div>
+        <h3 class="font-pop text-2xl">創設</h3>
+        <p class="mt-2 font-bold">2023年 開校</p>
+        <p class="text-sm mt-1 opacity-80">日本で約20年ぶり、令和の新しい高専。</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="zigzag-divider"></div>
+
+  <!-- Highlights / comic strip -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="font-pop text-4xl md:text-5xl text-center mb-10">キャンパスのギモン <span class="text-deco-pink">？！</span></h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="comic-frame p-6 bg-white">
+        <p class="font-pop text-2xl">Q. 全寮制って本当？</p>
+        <div class="speech mt-4 bg-deco-lemon">A. はい！山の上でルームメイトと暮らす、青春MAX。</div>
+      </div>
+      <div class="comic-frame p-6 bg-white">
+        <p class="font-pop text-2xl">Q. 学費が気になる…</p>
+        <div class="speech mt-4 bg-deco-mint">A. 企業からの奨学金など、チャレンジを後押しする仕組みがあるよ。</div>
+      </div>
+      <div class="comic-frame p-6 bg-white">
+        <p class="font-pop text-2xl">Q. 何作ってるの？</p>
+        <div class="speech mt-4 bg-deco-pink text-white">A. ソフト／ハード／サービス／起業プラン…自由！</div>
+      </div>
+      <div class="comic-frame p-6 bg-white">
+        <p class="font-pop text-2xl">Q. スダチ食べ放題？</p>
+        <div class="speech mt-4 bg-deco-lavender">A. ノーコメント（でも香りはする）。</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zigzag-divider"></div>
+
+  <Gacha />
+
+  <div class="zigzag-divider"></div>
+
+  <!-- Stats / CTA cards -->
+  <section class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-4 gap-4 text-center">
+    <div class="comic-frame p-5 bg-deco-pink text-white -rotate-2">
+      <div class="font-pop text-5xl">5</div>
+      <div class="font-bold">年制</div>
+    </div>
+    <div class="comic-frame p-5 bg-deco-lemon rotate-1">
+      <div class="font-pop text-5xl">3</div>
+      <div class="font-bold">学びの柱</div>
+    </div>
+    <div class="comic-frame p-5 bg-deco-mint -rotate-1">
+      <div class="font-pop text-5xl">100%</div>
+      <div class="font-bold">寮生活</div>
+    </div>
+    <div class="comic-frame p-5 bg-deco-lavender rotate-2">
+      <div class="font-pop text-5xl">∞</div>
+      <div class="font-bold">可能性</div>
+    </div>
+  </section>
+
+  <script>
+    import { initGsap } from '../lib/gsap.ts';
+    const gsap = initGsap();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduce) {
+      // Split hero title and bounce each char
+      const title = document.getElementById('hero-title');
+      if (title) {
+        const text = title.textContent || '';
+        title.textContent = '';
+        const spans = [...text].map((ch) => {
+          const s = document.createElement('span');
+          s.textContent = ch;
+          s.style.display = 'inline-block';
+          s.style.willChange = 'transform,opacity';
+          title.appendChild(s);
+          return s;
+        });
+        gsap.from(spans, {
+          y: -120, opacity: 0, rotation: () => Math.random()*180-90,
+          duration: 0.8, ease: 'back.out(2)', stagger: 0.06,
+        });
+      }
+      gsap.utils.toArray<HTMLElement>('.card').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+          y: 60, opacity: 0, rotation: i%2===0?-20:20, duration: 0.7, ease: 'back.out(1.7)',
+        });
+      });
+      gsap.utils.toArray<HTMLElement>('.comic-frame').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: 'top 90%' },
+          x: i%2===0?-80:80, opacity: 0, duration: 0.6, ease: 'power2.out',
+        });
+      });
+    }
+  </script>
+</BaseLayout>

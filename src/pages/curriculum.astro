@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HiddenEmoji from '../components/HiddenEmoji.astro';
+
+const pillars = [
+  { key: 'tech', title: 'テック', emoji: '💻', bg: 'bg-deco-electric', desc: 'プログラミング、AI、電子工作、ロボティクス、数学…作るための土台を徹底的に。', items: ['プログラミング', 'AI/機械学習', '電子工作', '数学'] },
+  { key: 'design', title: 'デザイン', emoji: '🎨', bg: 'bg-deco-pink', desc: 'UI/UX、グラフィック、プロダクト、体験設計。世界の見え方を変える力。', items: ['UI/UX', 'グラフィック', 'プロダクト', '体験設計'] },
+  { key: 'entre', title: '起業家精神', emoji: '⚡', bg: 'bg-deco-lemon', desc: 'ビジネスの基礎から、投資家との対話、実際の事業プランづくりまで。', items: ['ビジネス基礎', 'ピッチ', '事業開発', '起業実践'] },
+];
+---
+<BaseLayout title="学び | 神山まるごと高専 冒険サイト">
+  <section class="max-w-6xl mx-auto px-4 py-16 relative">
+    <p class="font-pop text-xl text-deco-pink text-center">📚 CURRICULUM</p>
+    <h1 class="font-pop text-5xl md:text-7xl text-center neon text-rainbow mt-2">3本柱の学び</h1>
+    <p class="text-center mt-4 font-bold">テック・デザイン・起業家精神。3つを同時に、混ぜて、鍛える。</p>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+      {pillars.map((p, i) => (
+        <article class={`pillar comic-frame p-6 ${p.bg} relative ${i%2===0?'-rotate-2':'rotate-2'}`}>
+          <div class="text-7xl text-center">{p.emoji}</div>
+          <h2 class="font-pop text-4xl text-center mt-2">{p.title}</h2>
+          <p class="mt-4 font-bold">{p.desc}</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {p.items.map((it) => (
+              <li class="bg-white/80 text-deco-ink px-3 py-1 rounded-full border-2 border-deco-ink text-sm font-bold">#{it}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-16 comic-frame p-6 bg-white">
+      <h3 class="font-pop text-3xl">1年生〜5年生、こんな流れ 🚀</h3>
+      <ol class="mt-4 grid md:grid-cols-5 gap-4">
+        <li class="speech bg-deco-mint"><b>1年</b><br>基礎ドバッ</li>
+        <li class="speech bg-deco-lemon"><b>2年</b><br>作って壊して</li>
+        <li class="speech bg-deco-pink text-white"><b>3年</b><br>専門を深く</li>
+        <li class="speech bg-deco-lavender"><b>4年</b><br>事業と向き合う</li>
+        <li class="speech bg-deco-electric"><b>5年</b><br>世に放つ！</li>
+      </ol>
+    </div>
+
+    <div class="mt-10 text-right">
+      <HiddenEmoji id="curriculum" emoji="🍬" hint="学びのページに隠れた絵文字！" />
+    </div>
+  </section>
+
+  <script>
+    import { initGsap } from '../lib/gsap.ts';
+    const gsap = initGsap();
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.utils.toArray<HTMLElement>('.pillar').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+          x: i===1?0:(i===0?-200:200),
+          y: i===1?120:0,
+          opacity: 0, duration: 0.8, ease: 'back.out(1.6)',
+        });
+      });
+      document.querySelectorAll<HTMLElement>('.pillar').forEach((el) => {
+        el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.04, rotation: 0, duration: 0.3 }));
+        el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, rotation: el.classList.contains('-rotate-2')?-2:2, duration: 0.3 }));
+      });
+    }
+  </script>
+</BaseLayout>

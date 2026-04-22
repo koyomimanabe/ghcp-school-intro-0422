@@ -1,0 +1,53 @@
+---
+const base = import.meta.env.BASE_URL;
+const nav = [
+  { href: '', label: 'ホーム', emoji: '🏠', bg: 'bg-deco-pink', text: 'text-white' },
+  { href: 'curriculum', label: '学び', emoji: '📚', bg: 'bg-deco-lemon', text: 'text-deco-ink' },
+  { href: 'campus', label: '学生生活', emoji: '🏕️', bg: 'bg-deco-mint', text: 'text-deco-ink' },
+  { href: 'timeline', label: '年表', emoji: '📅', bg: 'bg-deco-lavender', text: 'text-deco-ink' },
+  { href: 'quiz', label: 'クイズ', emoji: '🧠', bg: 'bg-deco-electric', text: 'text-deco-ink' },
+  { href: 'adventure', label: '冒険', emoji: '🎮', bg: 'bg-deco-lavender', text: 'text-deco-ink' },
+  { href: 'contact', label: '公式', emoji: '🔗', bg: 'bg-deco-electric', text: 'text-deco-ink' },
+];
+---
+<header id="site-header" class="sticky top-0 z-30 backdrop-blur bg-white/60 border-b-4 border-deco-ink">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
+    <a href={base} class="group inline-flex items-center gap-2">
+      <span class="text-4xl animate-wiggle inline-block">🏫</span>
+      <span class="font-pop text-2xl md:text-3xl leading-none text-rainbow neon">神山まるごと高専</span>
+      <span class="hidden md:inline text-xs font-bold bg-deco-ink text-deco-lemon px-2 py-1 rounded-full rotate-[-6deg]">非公式★ファン</span>
+    </a>
+    <nav aria-label="メインメニュー">
+      <ul class="flex flex-wrap gap-2 md:gap-3">
+        {nav.map((n, i) => (
+          <li>
+            <a
+              href={`${base}${n.href}`}
+              class={`btn-pop ${n.bg} ${n.text} text-sm md:text-base`}
+              style={`transform: rotate(${(i%2===0?-2:2)}deg);`}
+            >
+              <span class="mr-1">{n.emoji}</span>{n.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Gentle wiggle on scroll
+  const h = document.getElementById('site-header');
+  if (h && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let last = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const dy = y - last;
+      last = y;
+      const rot = Math.max(-1.5, Math.min(1.5, dy * 0.08));
+      h.style.transform = `rotate(${rot}deg)`;
+      clearTimeout((h as any)._t);
+      (h as any)._t = setTimeout(() => (h.style.transform = 'rotate(0)'), 120);
+    });
+  }
+</script>

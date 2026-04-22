@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HiddenEmoji from '../components/HiddenEmoji.astro';
+
+const quiz = [
+  { q: '神山まるごと高専があるのは徳島県神山町だ。', a: true, ex: '正解！徳島県名西郡 神山町の山の上にあります。' },
+  { q: 'この学校は2010年に開校した。', a: false, ex: '開校は2023年。日本で約20年ぶりの高専です。' },
+  { q: '学びの3本柱は「テック・デザイン・起業家精神」である。', a: true, ex: 'その通り！3つを同時に、混ぜて、鍛えます。' },
+  { q: '全員が通学制で、寮はない。', a: false, ex: '実は全寮制。山の上でルームメイトと暮らします。' },
+  { q: '学費の負担を軽減する奨学金制度がある。', a: true, ex: '企業からの支援など、チャレンジを後押しする仕組みがあります。' },
+  { q: '公式キャラはスダチの精霊「スダッチ」だ。', a: false, ex: '…それは本サイトの非公式ネタです！🍊' },
+];
+---
+<BaseLayout title="神山クイズ | 非公式ファンサイト">
+  <section class="max-w-3xl mx-auto px-4 py-12">
+    <p class="font-pop text-xl text-deco-pink text-center">🧠 QUIZ CHALLENGE</p>
+    <h1 class="font-pop text-5xl md:text-7xl text-center neon text-rainbow mt-2">神山クイズ</h1>
+    <p class="text-center mt-4 font-bold">全{quiz.length}問、〇× で答えろ！</p>
+
+    <div class="mt-8 comic-frame p-6 bg-white">
+      <div class="flex justify-between items-center">
+        <p class="font-pop text-lg">Q<span id="q-idx">1</span> / {quiz.length}</p>
+        <p class="font-pop text-lg">🏆 <span id="q-score">0</span>pt</p>
+      </div>
+      <div class="mt-4 h-3 bg-deco-ink/10 rounded-full overflow-hidden">
+        <div id="q-bar" class="h-full bg-gradient-to-r from-deco-pink via-deco-lemon to-deco-mint transition-all" style="width:0%"></div>
+      </div>
+
+      <p id="q-text" class="mt-6 text-xl md:text-2xl font-bold min-h-[4rem]"></p>
+
+      <div class="mt-6 flex gap-4 justify-center">
+        <button id="q-o" class="btn-pop bg-deco-mint text-deco-ink text-4xl w-28 h-28">〇</button>
+        <button id="q-x" class="btn-pop bg-deco-pink text-white text-4xl w-28 h-28">✕</button>
+      </div>
+
+      <div id="q-feedback" class="mt-6 speech bg-deco-lemon hidden"></div>
+
+      <div id="q-result" class="mt-6 hidden text-center">
+        <p class="font-pop text-3xl">結果: <span id="q-final" class="text-rainbow"></span> / {quiz.length}</p>
+        <p id="q-title" class="mt-2 font-pop text-2xl"></p>
+        <button id="q-retry" class="mt-4 btn-pop bg-deco-pink text-white">🔁 もう一度</button>
+      </div>
+    </div>
+
+    <div class="mt-8 text-right">
+      <HiddenEmoji id="quiz" emoji="🎯" hint="クイズページに隠れた絵文字！" />
+    </div>
+  </section>
+
+  <script define:vars={{ quiz }}>
+    import { pickupSe, sparkleSe } from '../lib/audio.ts';
+    import { achievement, toast } from '../lib/toast.ts';
+    import { set, get } from '../lib/storage.ts';
+
+    let idx = 0, score = 0;
+    const qText = document.getElementById('q-text');
+    const qIdx = document.getElementById('q-idx');
+    const qScore = document.getElementById('q-score');
+    const qBar = document.getElementById('q-bar');
+    const qFeedback = document.getElementById('q-feedback');
+    const qResult = document.getElementById('q-result');
+    const qFinal = document.getElementById('q-final');
+    const qTitle = document.getElementById('q-title');
+    const oBtn = document.getElementById('q-o');
+    const xBtn = document.getElementById('q-x');
+    const retry = document.getElementById('q-retry');
+
+    function render() {
+      const q = quiz[idx];
+      qText.textContent = q.q;
+      qIdx.textContent = String(idx+1);
+      qScore.textContent = String(score);
+      qBar.style.width = `${(idx / quiz.length) * 100}%`;
+      qFeedback.classList.add('hidden');
+    }
+
+    function answer(val) {
+      const q = quiz[idx];
+      const ok = val === q.a;
+      if (ok) { score++; pickupSe(); }
+      else { sparkleSe(); }
+      qFeedback.textContent = `${ok?'⭕ 正解！':'❌ 残念'} — ${q.ex}`;
+      qFeedback.className = `mt-6 speech ${ok?'bg-deco-mint':'bg-deco-pink text-white'}`;
+      qFeedback.classList.remove('hidden');
+      oBtn.disabled = true; xBtn.disabled = true;
+      setTimeout(() => {
+        idx++;
+        oBtn.disabled = false; xBtn.disabled = false;
+        if (idx >= quiz.length) finish();
+        else render();
+      }, 1400);
+    }
+
+    function finish() {
+      qResult.classList.remove('hidden');
+      qFinal.textContent = String(score);
+      qBar.style.width = '100%';
+      const best = Math.max(score, get('quiz.best', 0));
+      set('quiz.best', best);
+      let title = '🌱 見習い';
+      if (score === quiz.length) title = '👑 神山博士！';
+      else if (score >= quiz.length - 1) title = '🎓 ほぼマスター';
+      else if (score >= quiz.length / 2) title = '📚 冒険者';
+      qTitle.textContent = `称号: ${title} (ベスト: ${best})`;
+      if (score === quiz.length) achievement('パーフェクトクリア！');
+      else toast(`ベスト: ${best}pt`, 'success');
+    }
+
+    oBtn?.addEventListener('click', () => answer(true));
+    xBtn?.addEventListener('click', () => answer(false));
+    retry?.addEventListener('click', () => { idx = 0; score = 0; qResult.classList.add('hidden'); render(); });
+
+    render();
+  </script>
+</BaseLayout>

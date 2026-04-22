@@ -1,0 +1,61 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<footer class="relative z-10 mt-24 border-t-4 border-deco-ink bg-deco-ink text-deco-cream">
+  <div class="zigzag-divider -mt-6" style="--c:#0c0a1a; filter: hue-rotate(0deg);"></div>
+  <div class="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-8 justify-between items-start">
+    <div>
+      <p class="font-pop text-2xl text-rainbow">神山まるごと高専 冒険サイト</p>
+      <p class="text-sm mt-2 opacity-80">非公式ファンサイト。公式ではありません。</p>
+      <p class="text-xs mt-1 opacity-60">公式情報は <a class="underline text-deco-lemon" href="https://kamiyama.ac.jp/" target="_blank" rel="noopener noreferrer">kamiyama.ac.jp</a> をご確認ください。</p>
+    </div>
+    <div class="text-sm">
+      <p class="font-bold mb-2">🕹️ 隠しコマンド</p>
+      <p class="opacity-80">↑ ↑ ↓ ↓ ← → ← → B A で…？</p>
+      <p class="mt-2 opacity-60">各ページに絵文字が1つずつ隠れているよ。見つけたらクリック！</p>
+    </div>
+    <div class="text-sm">
+      <button id="fortune-btn" class="btn-pop bg-deco-lemon text-deco-ink">🔮 今日の運勢</button>
+      <div id="fortune-out" class="mt-3 speech bg-white text-deco-ink text-sm max-w-xs hidden"></div>
+    </div>
+  </div>
+  <div id="trophy" class="hidden max-w-6xl mx-auto px-4 pb-6 text-center">
+    <div class="inline-block bg-deco-lemon text-deco-ink border-pop shadow-pop px-6 py-3 rounded-full font-pop text-xl animate-bounce-slow">🏆 全ての隠し絵文字を発見！神山マスター！</div>
+  </div>
+  <div class="text-center text-xs opacity-60 py-3">© {new Date().getFullYear()} 非公式ファンサイト / Built with Astro + Tailwind + GSAP</div>
+</footer>
+
+<script>
+  import { getCollected } from '../lib/storage.ts';
+
+  // Trophy check
+  const HIDDEN_IDS = ['home','curriculum','campus','adventure','contact','secret','quiz','timeline'];
+  function updateTrophy() {
+    const found = getCollected();
+    const all = HIDDEN_IDS.every((id) => found.includes(id));
+    const t = document.getElementById('trophy');
+    if (t && all) t.classList.remove('hidden');
+  }
+  updateTrophy();
+  window.addEventListener('storage', updateTrophy);
+  window.addEventListener('kmg:collected', updateTrophy);
+
+  // Fortune (daily seeded)
+  const btn = document.getElementById('fortune-btn');
+  const out = document.getElementById('fortune-out');
+  const learn = ['大吉','中吉','小吉','末吉','吉'];
+  const food  = ['スダチ大盛り','おかわり自由','デザート追加','普通','ちょっと塩辛め'];
+  const code  = ['一発コンパイル','凡ミスに注意','ペアプロ吉','赤ランプ連発','リファクタ日和'];
+  function seed(d: Date) {
+    return d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+  }
+  function pick<T>(arr: T[], s: number): T { return arr[s % arr.length]; }
+  btn?.addEventListener('click', () => {
+    const s = seed(new Date());
+    const msg = `📚 学び運: ${pick(learn, s)}<br>🍱 寮メシ運: ${pick(food, s*3+1)}<br>💻 コード運: ${pick(code, s*7+2)}`;
+    if (out) {
+      out.innerHTML = msg;
+      out.classList.remove('hidden');
+    }
+  });
+</script>

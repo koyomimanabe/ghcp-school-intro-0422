@@ -1,0 +1,41 @@
+---
+// Cursor-following mascot pet with click comments.
+---
+<div id="cursor-pet" class="fixed z-40 pointer-events-none text-3xl md:text-4xl" style="left:-100px;top:-100px;transition: transform .06s linear;" aria-hidden="true">
+  <span id="pet-body" class="inline-block drop-shadow">🐸</span>
+  <div id="pet-bubble" class="speech bg-white text-deco-ink text-xs absolute left-10 top-[-8px] whitespace-nowrap hidden"></div>
+</div>
+
+<script>
+  const pet = document.getElementById('cursor-pet')!;
+  const bubble = document.getElementById('pet-bubble')!;
+  let x = -100, y = -100, tx = -100, ty = -100;
+  const comments = ['けろっ！','神山いいところ〜','スダチ食べた？','コード書こ','キラキラしてる？','寮メシ気になる','冒険しよ！','LED点いたよ','スパーク⚡'];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.addEventListener('pointermove', (e) => {
+    tx = e.clientX + 16;
+    ty = e.clientY + 16;
+    if (reduce) {
+      x = tx; y = ty;
+      pet.style.left = `${x}px`;
+      pet.style.top = `${y}px`;
+    }
+  });
+
+  function loop() {
+    x += (tx - x) * 0.15;
+    y += (ty - y) * 0.15;
+    pet.style.left = `${x}px`;
+    pet.style.top = `${y}px`;
+    requestAnimationFrame(loop);
+  }
+  if (!reduce) requestAnimationFrame(loop);
+
+  document.addEventListener('click', () => {
+    bubble.textContent = comments[Math.floor(Math.random()*comments.length)];
+    bubble.classList.remove('hidden');
+    clearTimeout((bubble as any)._t);
+    (bubble as any)._t = setTimeout(() => bubble.classList.add('hidden'), 1600);
+  });
+</script>
